@@ -1,4 +1,4 @@
-package moufdi.taha.com.topquiz;
+package moufdi.taha.com.topquiz.controller;
 
 
 import android.content.Intent;
@@ -11,16 +11,21 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import moufdi.taha.com.topquiz.R;
+import moufdi.taha.com.topquiz.model.User;
+
 
 public class MainActivity extends AppCompatActivity {
     private TextView mGreetingText;
     private Button mPlayButton;
     private EditText mNameImput;
+    private User mUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mUser=new User();
         mGreetingText=(TextView)findViewById(R.id.activity_main_greeting_text);
         mPlayButton=(Button)findViewById(R.id.main_activity_play_btn);
         mNameImput=(EditText)findViewById(R.id.main_activity_name_input);
@@ -44,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
         mPlayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String firstName=mNameImput.getText().toString();
+                mUser.setFirstName(firstName);
                 Intent gameActivity=new Intent(MainActivity.this,GameActivity.class);
                 startActivity(gameActivity);
             }
