@@ -1,7 +1,9 @@
 package moufdi.taha.com.topquiz;
 
-import android.support.v7.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -42,7 +44,8 @@ public class MainActivity extends AppCompatActivity {
         mPlayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent gameActivity=new Intent(MainActivity.this,GameActivity.class);
+                startActivity(gameActivity);
             }
         });
 
