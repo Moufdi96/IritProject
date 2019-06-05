@@ -3,9 +3,10 @@ package moufdi.taha.com.topquiz.model;
 import java.util.ArrayList;
 
 public class Question {
-    String mQuestion;
-    ArrayList<String> mChoiceList;
-    int mAnswerIndex;
+   private String mQuestion;
+   private ArrayList<String> mChoiceList;
+   private int mAnswerIndex;
+
     public Question(String mQuestion,ArrayList<String> mChoiceList,int mAnswerIndex){
         this.setQuestion(mQuestion);
         this.setChoiceList(mChoiceList);

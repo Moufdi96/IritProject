@@ -10,7 +10,7 @@ public class QuestionBank {
     private int mNextQuestionIndex;
 
     public QuestionBank(ArrayList<Question> mQuestionBank){
-        this.setmNextQuestionIndex(0);
+        mNextQuestionIndex=0;
         this.setmQuestionBank(mQuestionBank);
         Collections.shuffle(mQuestionBank);
 
@@ -20,9 +20,9 @@ public class QuestionBank {
         this.mQuestionBank = mQuestionBank;
     }
 
-    public void setmNextQuestionIndex(int mNextQuestionIndex) {
+   /* public void setmNextQuestionIndex(int mNextQuestionIndex) {
         this.mNextQuestionIndex = mNextQuestionIndex;
-    }
+    }*/
 
     public ArrayList<Question> getmQuestionBank() {
         return mQuestionBank;
@@ -35,7 +35,7 @@ public class QuestionBank {
     }
 
     public Question getQuestion(){
-        return mQuestionBank.get(mNextQuestionIndex);
+        return mQuestionBank.get(mNextQuestionIndex++);
     }
 
 

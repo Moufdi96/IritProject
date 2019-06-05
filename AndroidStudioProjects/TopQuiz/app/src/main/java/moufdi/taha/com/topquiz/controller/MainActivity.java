@@ -15,7 +15,7 @@ import moufdi.taha.com.topquiz.R;
 import moufdi.taha.com.topquiz.model.User;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
     private TextView mGreetingText;
     private Button mPlayButton;
     private EditText mNameImput;
