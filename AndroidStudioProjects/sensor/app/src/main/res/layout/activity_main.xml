@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".controlleur.MainActivity">
+
+    <TextView
+        android:id="@+id/activity_main_text_titre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:textColor="#FFF"
+        android:text="Sensors"
+        android:gravity="center"
+        android:textSize="40dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:padding="3dp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginHorizontal="5dp">
+
+        <TextView
+            android:id="@+id/activity_main_text_accelerometer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Accelerometer"
+            android:textSize="20dp"
+            android:background="@android:color/holo_green_dark"
+            android:textColor="#FFF"
+            android:padding="10dp"/>
+
+        <TextView
+            android:id="@+id/activity_main_text_xaccelerometer"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@android:color/darker_gray"
+            android:text="X"
+            android:textSize="20dp"
+            android:padding="10dp"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            />
+
+        <TextView
+            android:id="@+id/activity_main_text_yaccelerometer"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@android:color/darker_gray"
+            android:text="Y"
+            android:textSize="20dp"
+            android:padding="10dp"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            />
+
+        <TextView
+            android:id="@+id/activity_main_text_zaccelerometer"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@android:color/darker_gray"
+            android:text="Z"
+            android:textSize="20dp"
+            android:padding="10dp"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            />
+
+
+    </LinearLayout>
+
+</LinearLayout>

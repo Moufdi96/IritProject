@@ -2,6 +2,7 @@ package moufdi.taha.com.topquiz.controller;
 
 
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 mPlayButton.setEnabled(s.toString().length()!=0);
+                System.out.println(s.toString());
             }
 
             @Override
