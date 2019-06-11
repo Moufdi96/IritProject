@@ -34,8 +34,8 @@
             android:id="@+id/activity_main_text_accelerometer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Accelerometer"
-            android:textSize="20dp"
+            android:text="Accelerometer (m/s²)"
+            android:textSize="18dp"
             android:background="@android:color/holo_green_dark"
             android:textColor="#FFF"
             android:padding="10dp"/>
@@ -44,10 +44,10 @@
             android:id="@+id/activity_main_text_xaccelerometer"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="@android:color/darker_gray"
+            android:background="#FFF"
             android:text="X"
-            android:textSize="20dp"
-            android:padding="10dp"
+            android:textSize="15dp"
+            android:padding="5dp"
             android:gravity="center"
             android:layout_weight="1"
             android:layout_marginLeft="5dp"
@@ -57,10 +57,10 @@
             android:id="@+id/activity_main_text_yaccelerometer"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="@android:color/darker_gray"
+            android:background="#FFF"
             android:text="Y"
-            android:textSize="20dp"
-            android:padding="10dp"
+            android:textSize="15dp"
+            android:padding="5dp"
             android:gravity="center"
             android:layout_weight="1"
             android:layout_marginLeft="5dp"
@@ -70,9 +70,9 @@
             android:id="@+id/activity_main_text_zaccelerometer"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="@android:color/darker_gray"
+            android:background="#FFF"
             android:text="Z"
-            android:textSize="20dp"
+            android:textSize="15dp"
             android:padding="10dp"
             android:gravity="center"
             android:layout_weight="1"
@@ -81,5 +81,64 @@
 
 
     </LinearLayout>
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginHorizontal="5dp">
+
+        <TextView
+            android:id="@+id/activity_main_text_photometer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Photometer (Lux)"
+            android:textSize="18dp"
+            android:background="@android:color/holo_green_dark"
+            android:textColor="#FFF"
+            android:padding="10dp"/>
+
+        <TextView
+            android:id="@+id/activity_main_text_photometer2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="#FFF"
+            android:text="X"
+            android:textSize="15dp"
+            android:padding="5dp"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            />
+
+        <TextView
+            android:id="@+id/activity_main_text_photometer1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="#FFF"
+            android:text="Y"
+            android:textSize="15dp"
+            android:padding="5dp"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            />
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/activity_main_QuitApp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Quit"
+        android:padding="10dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="320dp"
+        android:textSize="20dp"
+        android:textStyle="italic"
+        android:background="@color/colorAccent"
+        android:textColor="#FFF"/>
 
 </LinearLayout>
