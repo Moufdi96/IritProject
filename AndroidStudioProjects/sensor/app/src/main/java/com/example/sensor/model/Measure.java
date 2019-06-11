@@ -1,6 +1,6 @@
 package com.example.sensor.model;
 
-public class AccelerometerMeasure {
+public class Measure {
     private float MesureX;
     private float MesureY;
     private float MesureZ;

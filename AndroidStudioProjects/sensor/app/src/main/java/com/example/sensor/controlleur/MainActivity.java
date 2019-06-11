@@ -11,14 +11,20 @@ import android.widget.TextView;
 import com.example.sensor.R;
 import com.example.sensor.model.SAccelerometer;
 import com.example.sensor.model.SProximity;
+import com.example.sensor.model.SensorFactory;
+
+import java.util.Optional;
 
 
 public class MainActivity extends AppCompatActivity {
     private TextView mTextTitle;
     private TextView mTextAccelerometer;
-    private TextView mXAccelerometer;
-    private TextView mYAccelerometer;
-    private TextView mZAccelerometer;
+    private TextView mAccelerometerValue1;
+    private TextView mAccelerometerValue2;
+    private TextView mAccelerometerValue3;
+    private TextView mTextPhotometer;
+    private TextView mPhotometerValue1;
+    private TextView mPhotometerValue2;
     private SAccelerometer mSAccelerometer;
     private SProximity mSProximity;
     private Button mButton;
@@ -31,17 +37,17 @@ public class MainActivity extends AppCompatActivity {
 
         mTextTitle= (TextView)findViewById(R.id.activity_main_text_titre);
         mTextAccelerometer=(TextView)findViewById(R.id.activity_main_text_accelerometer);
-        mXAccelerometer=(TextView)findViewById(R.id.activity_main_text_xaccelerometer);
-        mYAccelerometer=(TextView)findViewById(R.id.activity_main_text_yaccelerometer);
-        mZAccelerometer=(TextView)findViewById(R.id.activity_main_text_zaccelerometer);
+        mAccelerometerValue1=(TextView)findViewById(R.id.activity_main_text_xaccelerometer);
+        mAccelerometerValue2=(TextView)findViewById(R.id.activity_main_text_yaccelerometer);
+        mAccelerometerValue3=(TextView)findViewById(R.id.activity_main_text_zaccelerometer);
+        mTextPhotometer=(TextView)findViewById(R.id.activity_main_text_photometer);
+        mPhotometerValue1=(TextView)findViewById(R.id.activity_main_text_photometer1);
+        mPhotometerValue2=(TextView)findViewById(R.id.activity_main_text_photometer2);
         mButton=(Button)findViewById(R.id.activity_main_QuitApp);
         mSensorManager=(SensorManager)getSystemService(Context.SENSOR_SERVICE);
-        //mSAccelerometer=new SAccelerometer(mSensorManager,mXAccelerometer,mYAccelerometer,mZAccelerometer);
-        mSProximity=new SProximity(mSensorManager);
-        if(mSProximity.getProximity()!=null){
-            //mSensorManager.registerListener(mSAccelerometer,mSAccelerometer.getAccelerometer(),SensorManager.SENSOR_DELAY_NORMAL);
-            //System.out.println("power "+SAccelerometer.getSensorPowerConsumption()+" mA      max range"+SAccelerometer.getMaxRange()+ "m/s²");
-        }
+        mSAccelerometer=new SAccelerometer(mSensorManager,mAccelerometerValue1,mAccelerometerValue2,mAccelerometerValue3);
+        mSProximity=new SProximity(mSensorManager,mPhotometerValue1,mPhotometerValue2);
+
 
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,15 +57,22 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
+
     protected void onResume(){
         super.onResume();
-       // mSensorManager.registerListener(mSAccelerometer,mSAccelerometer.getAccelerometer(),SensorManager.SENSOR_DELAY_NORMAL);
-        mSensorManager.registerListener(mSProximity,mSProximity.getProximity(),SensorManager.SENSOR_DELAY_NORMAL);
-    }
+        //si en creeant une boite avec getAccelerometer(), j'ai qq chose dedans la boite...
+        //if(Optional.ofNullable(mSAccelerometer.getAccelerometer()).isPresent())
+       //if(mSAccelerometer.getAccelerometer()!=null){
+            mSensorManager.registerListener(mSAccelerometer,mSAccelerometer.getAccelerometer(),SensorManager.SENSOR_DELAY_NORMAL);
+            mSensorManager.registerListener(mSProximity,mSProximity.getProximity(),SensorManager.SENSOR_DELAY_NORMAL);
+        }
+
 
     protected void onPause(){
         super.onPause();
         mSensorManager.unregisterListener(mSProximity,mSProximity.getProximity());
+        mSensorManager.unregisterListener(mSAccelerometer,mSAccelerometer.getAccelerometer());
     }
 }
 
