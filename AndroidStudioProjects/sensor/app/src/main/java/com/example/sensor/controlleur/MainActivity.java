@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mMainLayoutDesign=new MainLayoutDesign();
+        mMainLayoutDesign=MainLayoutDesign.getInstance();
         mSensorFactory=new SensorFactory();
         mTextAreaAccelerometer=new TextArea();
         mTextAreaProximity=new TextArea();
@@ -47,9 +47,6 @@ public class MainActivity extends AppCompatActivity {
         mSProximity=(SProximity)mSensorFactory.creatSensor(SensorType.PROXIMITY_SENSOR,mTextAreaProximity);
         mSAccelerometer.setADefaultAccelerometerSensor(mSensorManager);
         mSProximity.setADefaultProximitySensor(mSensorManager);
-
-
-
         mMainLayoutDesign.getButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,8 +54,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-
 
     protected void onResume(){
         super.onResume();

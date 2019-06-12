@@ -6,6 +6,17 @@ import android.widget.TextView;
 public class MainLayoutDesign {
     private TextView mTextTitle;
     private Button mButton;
+    private static MainLayoutDesign instance;
+
+    private MainLayoutDesign() {
+    }
+
+    public static MainLayoutDesign getInstance(){
+        if(instance==null){
+            instance= new MainLayoutDesign();
+        }
+        return  instance;
+    }
 
     public TextView getTextTitle() {
         return mTextTitle;
