@@ -6,28 +6,26 @@ import android.widget.TextView;
 
 public class SAccelerometer extends GSensor {
     private Sensor mAccelerometer;
-    //private static SAccelerometer instance;
+    private static final SensorType mSensorType=SensorType.ACCELEROMETER_SENSOR;
+    private static SAccelerometer instance;
 
-    private SAccelerometer(SensorManager sensorManager,TextView value1,TextView value2, TextView value3) {
-        super(value1,value2,value3);
-        this.mAccelerometer=sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+    public SAccelerometer(TextArea textArea) {
+        super(textArea);
     }
 
-   /* public static SAccelerometer getInstance(){
-
-    return }
-
-    private static class SAccelerometerHolder{
+    /*private static class SAccelerometerHolder{
         private static final SAccelerometer instance= new SAccelerometer();
-    }*/
+    }
 
+    public static SAccelerometer getInstance(){
+        return SAccelerometerHolder.instance; }*/
 
     public Sensor getAccelerometer() {
         return mAccelerometer;
     }
 
-    public void setAccelerometer(Sensor accelerometer) {
-        mAccelerometer = accelerometer;
+    public void setADefaultAccelerometerSensor(SensorManager sensorManager) {
+        mAccelerometer =sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
     }
 
 }

@@ -1,17 +1,14 @@
 package com.example.sensor.model;
 
 public enum SensorType {
-    ACCELEROMETER(3),TEMPERATURE(1);
+    ACCELEROMETER_SENSOR(3),PROXIMITY_SENSOR(2);
 
-    private int numParams;
+    private final int numParameters;
 
-    private SensorType(int numParams
-    ){
-        this.numParams = numParams;
+    private SensorType(int numParameters){
+        this.numParameters = numParameters;
     }
 
-    @Override
-    public String toString() {
-        return super.toString();
-    }
+    public int getNumParameters(){
+        return numParameters;}
 }

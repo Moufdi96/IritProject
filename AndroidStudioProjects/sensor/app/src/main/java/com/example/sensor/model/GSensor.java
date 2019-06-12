@@ -12,25 +12,18 @@ import android.widget.TextView;
  */
 public class GSensor implements SensorEventListener {
     private Measure mMeasure;
-    private TextView mValue1;
-    private TextView mValue2;
-    private TextView mValue3;
+    public TextArea mTextArea;
     private static float sensorPoweronsumption;
     private static float maxRange;
 
 
 
-    public GSensor(TextView value1, TextView value2, TextView value3) {
+    public GSensor(TextArea textArea) {
         mMeasure = new Measure();
-        mValue1=value1;
-        mValue2=value2;
-        mValue3=value3;
-    }
-
-    public GSensor(TextView value1, TextView value2) {
-        mMeasure = new Measure();
-        mValue1=value1;
-        mValue2=value2;
+        mTextArea=new TextArea();
+        mTextArea.setTextValue1(textArea.getTextValue1());
+        mTextArea.setTextValue2(textArea.getTextValue2());
+        mTextArea.setTextValue3(textArea.getTextValue3());
     }
 
     @Override
@@ -39,12 +32,12 @@ public class GSensor implements SensorEventListener {
         mMeasure.setMesureX(event.values[0]);
         mMeasure.setMesureY(event.values[1]);
         mMeasure.setMesureZ(event.values[2]);
-        mValue1.setText("X=" + (double)Math.round(mMeasure.getMesureX() * 100) / 100);
-        mValue2.setText("Y=" + (double)Math.round(mMeasure.getMesureY() * 100) / 100);
+        mTextArea.getTextValue1().setText("X=" + (double)Math.round(mMeasure.getMesureX() * 100) / 100);
+        mTextArea.getTextValue2().setText("Y=" + (double)Math.round(mMeasure.getMesureY() * 100) / 100);
         if(sensor.getType()==Sensor.TYPE_ACCELEROMETER){
-            mValue3.setText("Z=" + (double)Math.round(mMeasure.getMesureZ() * 100) / 100);
+            mTextArea.getTextValue3().setText("Z=" + (double)Math.round(mMeasure.getMesureZ() * 100) / 100);
         }
-        System.out.println("time of the new mesured value= "+event.timestamp+ "\n"+"x="+event.values[0]+"    y="+event.values[1]+"    z="+event.values[2]);
+        System.out.println("time of the new measured value= "+event.timestamp+ "\n"+"x="+event.values[0]+"    y="+event.values[1]+"    z="+event.values[2]);
 
     }
 
@@ -53,27 +46,35 @@ public class GSensor implements SensorEventListener {
 
     }
 
-    public TextView getValue1() {
-        return mValue1;
+    public Measure getMeasure() {
+        return mMeasure;
     }
 
-    public void setValue1(TextView value1) {
-        mValue1 = value1;
+    public void setMeasure(Measure measure) {
+        mMeasure = measure;
     }
 
-    public TextView getValue2() {
-        return mValue2;
+    public TextArea getTextArea() {
+        return mTextArea;
     }
 
-    public void setValue2(TextView value2) {
-        mValue2 = value2;
+    public void setTextArea(TextArea textArea) {
+        mTextArea = textArea;
     }
 
-    public TextView getValue3() {
-        return mValue3;
+    public static float getSensorPoweronsumption() {
+        return sensorPoweronsumption;
     }
 
-    public void setValue3(TextView value3) {
-        mValue3 = value3;
+    public static void setSensorPoweronsumption(float sensorPoweronsumption) {
+        GSensor.sensorPoweronsumption = sensorPoweronsumption;
+    }
+
+    public static float getMaxRange() {
+        return maxRange;
+    }
+
+    public static void setMaxRange(float maxRange) {
+        GSensor.maxRange = maxRange;
     }
 }
