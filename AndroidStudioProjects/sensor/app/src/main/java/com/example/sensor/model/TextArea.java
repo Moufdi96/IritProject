@@ -6,9 +6,18 @@ import android.widget.TextView;
 import com.example.sensor.R;
 
 public class TextArea  {
+    private TextView mTextNameSensor;
     private TextView mTextValue1;
     private TextView mTextValue2;
     private TextView mTextValue3;
+
+    public TextView getTextNameSensor() {
+        return mTextNameSensor;
+    }
+
+    public void setTextNameSensor(TextView textNameSensor) {
+        mTextNameSensor = textNameSensor;
+    }
 
     public TextView getTextValue1() {
         return mTextValue1;

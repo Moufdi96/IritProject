@@ -3,57 +3,54 @@ package com.example.sensor.controlleur;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import com.example.sensor.R;
+import com.example.sensor.model.MainLayoutDesign;
 import com.example.sensor.model.SAccelerometer;
 import com.example.sensor.model.SProximity;
+import com.example.sensor.model.SensorFactory;
+import com.example.sensor.model.SensorType;
 import com.example.sensor.model.TextArea;
-//import com.example.sensor.model.SProximity;
-//import com.example.sensor.model.SensorFactory;
-
-import java.util.Optional;
-
 
 public class MainActivity extends AppCompatActivity {
-    private TextView mTextTitle;
-    private TextView mTextAccelerometer;
+    private MainLayoutDesign mMainLayoutDesign;
     private TextArea mTextAreaAccelerometer;
     private TextArea mTextAreaProximity;
-    private TextView mTextPhotometer;
     private SAccelerometer mSAccelerometer;
     private SProximity mSProximity;
-    private Button mButton;
+    private SensorFactory mSensorFactory;
+
     private SensorManager mSensorManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        mTextTitle= (TextView)findViewById(R.id.activity_main_text_titre);
-        mTextAccelerometer=(TextView)findViewById(R.id.activity_main_text_accelerometer);
+        mMainLayoutDesign=new MainLayoutDesign();
+        mSensorFactory=new SensorFactory();
         mTextAreaAccelerometer=new TextArea();
         mTextAreaProximity=new TextArea();
+        mMainLayoutDesign.setTextTitle((TextView)findViewById(R.id.activity_main_text_titre));
+        mMainLayoutDesign.setButton((Button)findViewById(R.id.activity_main_QuitApp));
+        mTextAreaAccelerometer.setTextNameSensor((TextView)findViewById(R.id.activity_main_text_accelerometer));
         mTextAreaAccelerometer.setTextValue1((TextView)findViewById(R.id.activity_main_text_xaccelerometer));
         mTextAreaAccelerometer.setTextValue2((TextView)findViewById(R.id.activity_main_text_yaccelerometer));
         mTextAreaAccelerometer.setTextValue3((TextView)findViewById(R.id.activity_main_text_zaccelerometer));
-        mTextPhotometer=(TextView)findViewById(R.id.activity_main_text_photometer);
+        mTextAreaProximity.setTextNameSensor((TextView)findViewById(R.id.activity_main_text_photometer));
         mTextAreaProximity.setTextValue1((TextView)findViewById(R.id.activity_main_text_photometer1));
         mTextAreaProximity.setTextValue2((TextView)findViewById(R.id.activity_main_text_photometer2));
-        mButton=(Button)findViewById(R.id.activity_main_QuitApp);
         mSensorManager=(SensorManager)getSystemService(Context.SENSOR_SERVICE);
-        mSAccelerometer=new SAccelerometer(mTextAreaAccelerometer);
-        mSProximity=new SProximity(mTextAreaProximity);
+        mSAccelerometer=(SAccelerometer)mSensorFactory.creatSensor(SensorType.ACCELEROMETER_SENSOR,mTextAreaAccelerometer);
+        mSProximity=(SProximity)mSensorFactory.creatSensor(SensorType.PROXIMITY_SENSOR,mTextAreaProximity);
         mSAccelerometer.setADefaultAccelerometerSensor(mSensorManager);
         mSProximity.setADefaultProximitySensor(mSensorManager);
 
 
 
-        mButton.setOnClickListener(new View.OnClickListener() {
+        mMainLayoutDesign.getButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();

@@ -1,20 +1,25 @@
 package com.example.sensor.model;
 
 
-import android.app.Activity;
+
 import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.widget.TextView;
+
 
 public class SProximity extends GSensor {
     private static final SensorType mSENSOR_TYPE=SensorType.PROXIMITY_SENSOR;
     private Sensor mProximity;
+    private static SProximity instance =null;
 
     public SProximity(TextArea textArea) {
         super(textArea);
-       // this.mProximity=proximitySensor;
+    }
+
+    public static SProximity getInstance(TextArea textArea){
+        if (instance == null)
+        {   instance= new SProximity(textArea);
+        }
+        return instance;
     }
 
     public Sensor getProximity() {
