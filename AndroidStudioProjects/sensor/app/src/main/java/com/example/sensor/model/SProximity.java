@@ -4,7 +4,6 @@ package com.example.sensor.model;
 
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
-
 import java.util.Optional;
 
 

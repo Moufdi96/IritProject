@@ -1,7 +1,7 @@
 package com.example.sensor.model;
 
 public enum SensorType {
-    ACCELEROMETER_SENSOR(3),PROXIMITY_SENSOR(2);
+    ACCELEROMETER_SENSOR(3),PROXIMITY_SENSOR(2),PHOTOMETER_SENSOR(1);
 
     private final int numParameters;
 

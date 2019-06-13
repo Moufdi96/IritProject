@@ -10,11 +10,13 @@ public class SensorFactory {
 
         switch (sensorType) {
             case ACCELEROMETER_SENSOR:
-                sensor=SAccelerometer.getInstance(textArea);
+                sensor = SAccelerometer.getInstance(textArea);
                 break;
             case PROXIMITY_SENSOR:
                 sensor = SProximity.getInstance(textArea);
                 break;
+            case PHOTOMETER_SENSOR:
+                sensor = SPhotometer.getInstance(textArea);
         }
         return sensor;
     }
