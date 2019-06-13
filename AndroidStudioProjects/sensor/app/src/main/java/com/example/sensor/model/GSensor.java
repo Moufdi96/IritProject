@@ -3,7 +3,6 @@ package com.example.sensor.model;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
-import android.widget.TextView;
 
 /**
  * this is a GENERIC SENSOR

@@ -1,13 +1,16 @@
 package com.example.sensor.model;
 
 
+import java.util.Optional;
+
 public class SensorFactory {
 
     public GSensor creatSensor(SensorType sensorType,TextArea textArea) {
-        GSensor sensor=null;
+        GSensor sensor = null;
+
         switch (sensorType) {
             case ACCELEROMETER_SENSOR:
-                sensor = SAccelerometer.getInstance(textArea);
+                sensor=SAccelerometer.getInstance(textArea);
                 break;
             case PROXIMITY_SENSOR:
                 sensor = SProximity.getInstance(textArea);

@@ -22,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
     private SAccelerometer mSAccelerometer;
     private SProximity mSProximity;
     private SensorFactory mSensorFactory;
-
     private SensorManager mSensorManager;
 
     @Override
@@ -33,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         mSensorFactory=new SensorFactory();
         mTextAreaAccelerometer=new TextArea();
         mTextAreaProximity=new TextArea();
+        mSensorManager=(SensorManager)getSystemService(Context.SENSOR_SERVICE);
         mMainLayoutDesign.setTextTitle((TextView)findViewById(R.id.activity_main_text_titre));
         mMainLayoutDesign.setButton((Button)findViewById(R.id.activity_main_QuitApp));
         mTextAreaAccelerometer.setTextNameSensor((TextView)findViewById(R.id.activity_main_text_accelerometer));
@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
         mTextAreaProximity.setTextNameSensor((TextView)findViewById(R.id.activity_main_text_photometer));
         mTextAreaProximity.setTextValue1((TextView)findViewById(R.id.activity_main_text_photometer1));
         mTextAreaProximity.setTextValue2((TextView)findViewById(R.id.activity_main_text_photometer2));
-        mSensorManager=(SensorManager)getSystemService(Context.SENSOR_SERVICE);
         mSAccelerometer=(SAccelerometer)mSensorFactory.creatSensor(SensorType.ACCELEROMETER_SENSOR,mTextAreaAccelerometer);
         mSProximity=(SProximity)mSensorFactory.creatSensor(SensorType.PROXIMITY_SENSOR,mTextAreaProximity);
         mSAccelerometer.setADefaultAccelerometerSensor(mSensorManager);
@@ -55,20 +54,20 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
-        //si en creeant une boite avec getAccelerometer(), j'ai qq chose dedans la boite...
-        //if(Optional.ofNullable(mSAccelerometer.getAccelerometer()).isPresent())
-       //if(mSAccelerometer.getAccelerometer()!=null){
-            mSensorManager.registerListener(mSAccelerometer,mSAccelerometer.getAccelerometer(),SensorManager.SENSOR_DELAY_NORMAL);
-            mSensorManager.registerListener(mSProximity,mSProximity.getProximity(),SensorManager.SENSOR_DELAY_NORMAL);
+        if (mSProximity.getProximitySensor().isPresent()) {
+            mSensorManager.registerListener(mSProximity, mSProximity.getProximitySensor().get(), SensorManager.SENSOR_DELAY_NORMAL);
         }
 
+        if (mSAccelerometer.getAccelerometerSensor().isPresent())
+            mSensorManager.registerListener(mSAccelerometer, mSAccelerometer.getAccelerometerSensor().get(),SensorManager.SENSOR_DELAY_NORMAL);
+    }
 
     protected void onPause(){
         super.onPause();
-        mSensorManager.unregisterListener(mSProximity,mSProximity.getProximity());
-        mSensorManager.unregisterListener(mSAccelerometer,mSAccelerometer.getAccelerometer());
+        mSensorManager.unregisterListener(mSProximity,mSProximity.getProximitySensor().get());
+        mSensorManager.unregisterListener(mSAccelerometer,mSAccelerometer.getAccelerometerSensor().get());
     }
 }
 

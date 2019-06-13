@@ -5,28 +5,30 @@ package com.example.sensor.model;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 
+import java.util.Optional;
+
 
 public class SProximity extends GSensor {
     private static final SensorType mSENSOR_TYPE=SensorType.PROXIMITY_SENSOR;
-    private Sensor mProximity;
-    private static SProximity instance =null;
+    private Optional<Sensor> mProximitySensor=Optional.empty();
+    private static Optional<SProximity> instance =Optional.empty();
 
     public SProximity(TextArea textArea) {
         super(textArea);
     }
 
     public static SProximity getInstance(TextArea textArea){
-        if (instance == null)
-        {   instance= new SProximity(textArea);
+        if (!instance.isPresent())
+        {   instance=Optional.ofNullable(new SProximity(textArea));
         }
-        return instance;
+        return instance.get();
     }
 
-    public Sensor getProximity() {
-        return mProximity;
+    public Optional<Sensor> getProximitySensor() {
+        return mProximitySensor;
     }
 
     public void setADefaultProximitySensor(SensorManager sensorManager) {
-        mProximity=sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+        mProximitySensor=Optional.ofNullable(sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY));
     }
 }
