@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public class SPhotometer extends GSensor {
     private Optional<Sensor> mPhotometerSensor=Optional.empty();
-    private static final SensorType mSensorType=SensorType.ACCELEROMETER_SENSOR;
+    private static final SensorType mSensorType=SensorType.PHOTOMETER_SENSOR;
     private static Optional<SPhotometer > instance = Optional.empty();
 
     private SPhotometer(TextArea textArea) {

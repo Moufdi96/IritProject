@@ -6,11 +6,18 @@ import java.util.Optional;
 public class SensorFactory {
 
     public GSensor creatSensor(SensorType sensorType,TextArea textArea) {
-        GSensor sensor = null;
+        GSensor sensor=null,sensor2 = null;
 
         switch (sensorType) {
             case ACCELEROMETER_SENSOR:
                 sensor = SAccelerometer.getInstance(textArea);
+                sensor2=SAccelerometer.getInstance(textArea);
+                break;
+            case MAGNETOMETER_SENSOR:
+                sensor = SMagnetometer.getInstance(textArea);
+                break;
+            case ROTATION_SENSOR:
+                //sensor = SRotation.getInstance(textArea);
                 break;
             case PROXIMITY_SENSOR:
                 sensor = SProximity.getInstance(textArea);

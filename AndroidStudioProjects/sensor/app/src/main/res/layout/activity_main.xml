@@ -90,6 +90,124 @@
         android:layout_marginHorizontal="5dp">
 
         <TextView
+            android:id="@+id/activity_main_text_magnetometer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Magnetometer (nT)"
+            android:textSize="15dp"
+            android:background="@android:color/holo_green_dark"
+            android:textColor="#FFF"
+            android:padding="7dp"/>
+
+        <TextView
+            android:id="@+id/activity_main_text_xmagnetometer"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="#FFF"
+            android:text="Mx"
+            android:textSize="15dp"
+            android:padding="5dp"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            />
+
+        <TextView
+            android:id="@+id/activity_main_text_ymagnetometer"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="#FFF"
+            android:text="My"
+            android:textSize="15dp"
+            android:padding="5dp"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            />
+
+        <TextView
+            android:id="@+id/activity_main_text_zmagnetometer"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="#FFF"
+            android:text="Mz"
+            android:textSize="15dp"
+            android:padding="5dp"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginHorizontal="5dp">
+
+        <TextView
+            android:id="@+id/activity_main_text_rotation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Orientation (deg°)"
+            android:textSize="15dp"
+            android:background="@android:color/holo_green_dark"
+            android:textColor="#FFF"
+            android:padding="7dp"/>
+
+        <TextView
+            android:id="@+id/activity_main_text_xrotation"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="#FFF"
+            android:text="Ox"
+            android:textSize="15dp"
+            android:padding="5dp"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            />
+
+        <TextView
+            android:id="@+id/activity_main_text_yrotation"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="#FFF"
+            android:text="Oy"
+            android:textSize="15dp"
+            android:padding="5dp"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            />
+
+        <TextView
+            android:id="@+id/activity_main_text_zrotation"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="#FFF"
+            android:text="Oz"
+            android:textSize="15dp"
+            android:padding="5dp"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginHorizontal="5dp">
+
+        <TextView
             android:id="@+id/activity_main_text_proximity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -152,7 +270,7 @@
         android:text="Quit"
         android:padding="10dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="230dp"
+        android:layout_marginTop="100dp"
         android:textSize="20dp"
         android:textStyle="italic"
         android:background="@color/colorAccent"
