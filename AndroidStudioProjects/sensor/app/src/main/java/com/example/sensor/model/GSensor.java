@@ -33,23 +33,36 @@ public class GSensor implements SensorEventListener {
         mMeasure.setMesureZ(event.values[2]);
         switch(sensor.getType()){
             case Sensor.TYPE_ACCELEROMETER:
-                mTextArea.getTextValue1().setText("X=" + (double)Math.round(mMeasure.getMesureX()* 100) / 100);
+                mTextArea.getTextValue1().setText("X=" + (double)Math.round(mMeasure.getMesureX() * 100) / 100);
                 mTextArea.getTextValue2().setText("Y=" + (double)Math.round(mMeasure.getMesureY() * 100) / 100);
                 mTextArea.getTextValue3().setText("Z=" + (double)Math.round(mMeasure.getMesureZ() * 100) / 100);
+                System.out.println("\n");
+                System.out.println("Acceleration measure\n");
                 System.out.println("time of the new measured value= "+event.timestamp+ "\n"+"x="+event.values[0]+"    y="+event.values[1]+"    z="+event.values[2]);
+                System.out.println("\n");
                 break;
             case Sensor.TYPE_MAGNETIC_FIELD:
                 mTextArea.getTextValue1().setText("X=" + (double)Math.round(mMeasure.getMesureX()* 100) / 100);
                 mTextArea.getTextValue2().setText("Y=" + (double)Math.round(mMeasure.getMesureY() * 100) / 100);
                 mTextArea.getTextValue3().setText("Z=" + (double)Math.round(mMeasure.getMesureZ() * 100) / 100);
+                System.out.println("\n");
+                System.out.println("Magnetic field measure");
+                System.out.println("time of the new measured value= "+event.timestamp+ "\n"+"x="+event.values[0]+"    y="+event.values[1]+"    z="+event.values[2]);
+                System.out.println("\n");
                 break;
             case Sensor.TYPE_PROXIMITY:
                 mTextArea.getTextValue1().setText("" + (double)Math.round(mMeasure.getMesureX() * 100) / 100);
-                //System.out.println("time of the new measured value= "+event.timestamp+ "\n"+"x="+event.values[0]+"    y="+event.values[1]+"    z="+event.values[2]);
+                System.out.println("\n");
+                System.out.println("Proximity measure\n");
+                System.out.println("time of the new measured value= "+event.timestamp+ "\n"+"x="+event.values[0]);
+                System.out.println("\n");
                 break;
             case Sensor.TYPE_LIGHT:
                 mTextArea.getTextValue1().setText("" + (double)Math.round(mMeasure.getMesureX() * 100) / 100);
-                //System.out.println("time of the new measured value= "+event.timestamp+ "\n"+"x="+event.values[0]+"    y="+event.values[1]+"    z="+event.values[2]);
+                System.out.println("\n");
+                System.out.println("Luminosity measure\n");
+                System.out.println("time of the new measured value= "+event.timestamp+ "\n"+"x="+event.values[0]);
+                System.out.println("\n");
         }
     }
 

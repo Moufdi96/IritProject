@@ -60,7 +60,6 @@ public class SRotation implements SensorEventListener {
         SensorManager.getOrientation(rotationMatrix,orientationValues);
         mTextArea.getTextValue1().setText("X=" + (double)Math.round((orientationValues[0]*180/3.14)*100)/ 100);
         mTextArea.getTextValue2().setText("Y=" + (double)Math.round((orientationValues[1]*180/3.14)*100)/ 100);
-        mTextArea.getTextValue3().setText("Z=" + (double)Math.round((orientationValues[2]*180/3.04)*100)/ 100);
+        mTextArea.getTextValue3().setText("Z=" + (double)Math.round((orientationValues[2]*180/3.14)*100)/ 100);
     }
-
 }

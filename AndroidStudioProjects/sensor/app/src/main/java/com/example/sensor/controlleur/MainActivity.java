@@ -19,6 +19,8 @@ import com.example.sensor.model.SensorFactory;
 import com.example.sensor.model.SensorType;
 import com.example.sensor.model.TextArea;
 
+import static java.lang.Thread.sleep;
+
 public class MainActivity extends AppCompatActivity {
     private MainLayoutDesign mMainLayoutDesign;
     private SensorFactory mSensorFactory;
@@ -104,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (mSProximity.getProximitySensor().isPresent()) {
-            mSensorManager.registerListener(mSProximity, mSProximity.getProximitySensor().get(), SensorManager.SENSOR_DELAY_FASTEST);
+            mSensorManager.registerListener(mSProximity, mSProximity.getProximitySensor().get(), SensorManager.SENSOR_DELAY_UI);
         }
 
         if (mSPhotometer.getPhotometerSensor().isPresent()){
@@ -118,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
         if(mSMagnetometer.getMagnetometerSensor().isPresent()&&mSAccelerometer.getAccelerometerSensor().isPresent()){
             mSensorManager.registerListener(mSRotation,mSAccelerometer.getAccelerometerSensor().get(),SensorManager.SENSOR_DELAY_UI);
             mSensorManager.registerListener(mSRotation,mSMagnetometer.getMagnetometerSensor().get(),SensorManager.SENSOR_DELAY_UI);
+
         }
 
 

@@ -8,272 +8,339 @@
     android:orientation="vertical"
     tools:context=".controlleur.MainActivity">
 
-    <TextView
-        android:id="@+id/activity_main_text_titre"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
-        android:textColor="#FFF"
-        android:text="Sensors"
-        android:gravity="center"
-        android:textSize="40dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="5dp"
-        android:padding="3dp"
-        android:textStyle="bold" />
+        android:layout_height="match_parent">
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <LinearLayout
+            <TextView
+                android:id="@+id/activity_main_text_titre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorAccent"
+                android:textColor="#FFF"
+                android:text="Sensors"
+                android:gravity="center"
+                android:textSize="40dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:padding="3dp"
+                android:textStyle="bold" />
 
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginHorizontal="5dp">
+            <LinearLayout
 
-        <TextView
-            android:id="@+id/activity_main_text_accelerometer"
-            android:layout_width="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginHorizontal="5dp">
+
+                <TextView
+                    android:id="@+id/activity_main_text_accelerometer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Acceleration (m/s²)"
+                    android:textSize="15dp"
+                    android:background="@android:color/holo_green_dark"
+                    android:textColor="#FFF"
+                    android:padding="7dp"/>
+
+                <TextView
+                    android:id="@+id/activity_main_text_xaccelerometer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="#FFF"
+                    android:text="Ax"
+                    android:textSize="15dp"
+                    android:padding="5dp"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp"
+                    />
+
+                <TextView
+                    android:id="@+id/activity_main_text_yaccelerometer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="#FFF"
+                    android:text="Ay"
+                    android:textSize="15dp"
+                    android:padding="5dp"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp"
+                    />
+
+                <TextView
+                    android:id="@+id/activity_main_text_zaccelerometer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="#FFF"
+                    android:text="Az"
+                    android:textSize="15dp"
+                    android:padding="5dp"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp"
+                    />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginHorizontal="5dp">
+
+                <TextView
+                    android:id="@+id/activity_main_text_velosity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Velosity (m/s)"
+                    android:textSize="15dp"
+                    android:background="@android:color/holo_green_dark"
+                    android:textColor="#FFF"
+                    android:padding="7dp"/>
+
+                <TextView
+                    android:id="@+id/activity_main_text_xvelosity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="#FFF"
+                    android:text="Vx"
+                    android:textSize="15dp"
+                    android:padding="5dp"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp"
+                    />
+
+                <TextView
+                    android:id="@+id/activity_main_text_yvelosity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="#FFF"
+                    android:text="Vy"
+                    android:textSize="15dp"
+                    android:padding="5dp"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp"
+                    />
+
+                <TextView
+                    android:id="@+id/activity_main_text_zvelosity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="#FFF"
+                    android:text="Vz"
+                    android:textSize="15dp"
+                    android:padding="5dp"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginHorizontal="5dp">
+
+                <TextView
+                    android:id="@+id/activity_main_text_magnetometer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Magnetic field (nT)"
+                    android:textSize="15dp"
+                    android:background="@android:color/holo_green_dark"
+                    android:textColor="#FFF"
+                    android:padding="7dp"/>
+
+                <TextView
+                    android:id="@+id/activity_main_text_xmagnetometer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="#FFF"
+                    android:text="Mx"
+                    android:textSize="15dp"
+                    android:padding="5dp"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp"
+                    />
+
+                <TextView
+                    android:id="@+id/activity_main_text_ymagnetometer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="#FFF"
+                    android:text="My"
+                    android:textSize="15dp"
+                    android:padding="5dp"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp"
+                    />
+
+                <TextView
+                    android:id="@+id/activity_main_text_zmagnetometer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="#FFF"
+                    android:text="Mz"
+                    android:textSize="15dp"
+                    android:padding="5dp"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp"
+                    />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginHorizontal="5dp">
+
+                <TextView
+                    android:id="@+id/activity_main_text_rotation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Orientation (deg°)"
+                    android:textSize="15dp"
+                    android:background="@android:color/holo_green_dark"
+                    android:textColor="#FFF"
+                    android:padding="7dp"/>
+
+                <TextView
+                    android:id="@+id/activity_main_text_xrotation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="#FFF"
+                    android:text="Ox"
+                    android:textSize="15dp"
+                    android:padding="5dp"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp"
+                    />
+
+                <TextView
+                    android:id="@+id/activity_main_text_yrotation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="#FFF"
+                    android:text="Oy"
+                    android:textSize="15dp"
+                    android:padding="5dp"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp"
+                    />
+
+                <TextView
+                    android:id="@+id/activity_main_text_zrotation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="#FFF"
+                    android:text="Oz"
+                    android:textSize="15dp"
+                    android:padding="5dp"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginHorizontal="5dp">
+
+                <TextView
+                    android:id="@+id/activity_main_text_proximity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Proximity (cm)"
+                    android:textSize="15dp"
+                    android:background="@android:color/holo_green_dark"
+                    android:textColor="#FFF"
+                    android:padding="7dp"/>
+
+                <TextView
+                    android:id="@+id/activity_main_text_proximity1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="#FFF"
+                    android:text="Binary value"
+                    android:textSize="15dp"
+                    android:padding="5dp"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Accelerometer (m/s²)"
-            android:textSize="15dp"
-            android:background="@android:color/holo_green_dark"
-            android:textColor="#FFF"
-            android:padding="7dp"/>
+            android:layout_marginTop="30dp"
+            android:layout_marginHorizontal="5dp">
 
-        <TextView
-            android:id="@+id/activity_main_text_xaccelerometer"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="#FFF"
-            android:text="Ax"
-            android:textSize="15dp"
-            android:padding="5dp"
-            android:gravity="center"
-            android:layout_weight="1"
-            android:layout_marginLeft="5dp"
-            />
+            <TextView
+                android:id="@+id/activity_main_text_photometer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Light intensity (lux)"
+                android:textSize="15dp"
+                android:background="@android:color/holo_green_dark"
+                android:textColor="#FFF"
+                android:padding="7dp"/>
 
-        <TextView
-            android:id="@+id/activity_main_text_yaccelerometer"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="#FFF"
-            android:text="Ay"
-            android:textSize="15dp"
-            android:padding="5dp"
-            android:gravity="center"
-            android:layout_weight="1"
-            android:layout_marginLeft="5dp"
-            />
+            <TextView
+                android:id="@+id/activity_main_text_photometer1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="#FFF"
+                android:text="Luminosity"
+                android:textSize="15dp"
+                android:padding="5dp"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"/>
+            </LinearLayout>
 
-        <TextView
-            android:id="@+id/activity_main_text_zaccelerometer"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="#FFF"
-            android:text="Az"
-            android:textSize="15dp"
-            android:padding="5dp"
-            android:gravity="center"
-            android:layout_weight="1"
-            android:layout_marginLeft="5dp"
-            />
+            <Button
+                android:id="@+id/activity_main_QuitApp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Quit"
+                android:padding="10dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="100dp"
+                android:textSize="20dp"
+                android:textStyle="italic"
+                android:background="@color/colorAccent"
+                android:textColor="#FFF"/>
 
+        </LinearLayout>
 
-    </LinearLayout>
-
-    <LinearLayout
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginHorizontal="5dp">
-
-        <TextView
-            android:id="@+id/activity_main_text_magnetometer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Magnetometer (nT)"
-            android:textSize="15dp"
-            android:background="@android:color/holo_green_dark"
-            android:textColor="#FFF"
-            android:padding="7dp"/>
-
-        <TextView
-            android:id="@+id/activity_main_text_xmagnetometer"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="#FFF"
-            android:text="Mx"
-            android:textSize="15dp"
-            android:padding="5dp"
-            android:gravity="center"
-            android:layout_weight="1"
-            android:layout_marginLeft="5dp"
-            />
-
-        <TextView
-            android:id="@+id/activity_main_text_ymagnetometer"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="#FFF"
-            android:text="My"
-            android:textSize="15dp"
-            android:padding="5dp"
-            android:gravity="center"
-            android:layout_weight="1"
-            android:layout_marginLeft="5dp"
-            />
-
-        <TextView
-            android:id="@+id/activity_main_text_zmagnetometer"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="#FFF"
-            android:text="Mz"
-            android:textSize="15dp"
-            android:padding="5dp"
-            android:gravity="center"
-            android:layout_weight="1"
-            android:layout_marginLeft="5dp"
-            />
-
-
-    </LinearLayout>
-
-    <LinearLayout
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginHorizontal="5dp">
-
-        <TextView
-            android:id="@+id/activity_main_text_rotation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Orientation (deg°)"
-            android:textSize="15dp"
-            android:background="@android:color/holo_green_dark"
-            android:textColor="#FFF"
-            android:padding="7dp"/>
-
-        <TextView
-            android:id="@+id/activity_main_text_xrotation"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="#FFF"
-            android:text="Ox"
-            android:textSize="15dp"
-            android:padding="5dp"
-            android:gravity="center"
-            android:layout_weight="1"
-            android:layout_marginLeft="5dp"
-            />
-
-        <TextView
-            android:id="@+id/activity_main_text_yrotation"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="#FFF"
-            android:text="Oy"
-            android:textSize="15dp"
-            android:padding="5dp"
-            android:gravity="center"
-            android:layout_weight="1"
-            android:layout_marginLeft="5dp"
-            />
-
-        <TextView
-            android:id="@+id/activity_main_text_zrotation"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="#FFF"
-            android:text="Oz"
-            android:textSize="15dp"
-            android:padding="5dp"
-            android:gravity="center"
-            android:layout_weight="1"
-            android:layout_marginLeft="5dp"
-            />
-
-
-    </LinearLayout>
-
-    <LinearLayout
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginHorizontal="5dp">
-
-        <TextView
-            android:id="@+id/activity_main_text_proximity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Proximity (cm)"
-            android:textSize="15dp"
-            android:background="@android:color/holo_green_dark"
-            android:textColor="#FFF"
-            android:padding="7dp"/>
-
-        <TextView
-            android:id="@+id/activity_main_text_proximity1"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="#FFF"
-            android:text="Binary value"
-            android:textSize="15dp"
-            android:padding="5dp"
-            android:gravity="center"
-            android:layout_weight="1"
-            android:layout_marginLeft="5dp"
-            />
-
-    </LinearLayout>
-
-    <LinearLayout
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginHorizontal="5dp">
-
-        <TextView
-            android:id="@+id/activity_main_text_photometer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Photometer (lux)"
-            android:textSize="15dp"
-            android:background="@android:color/holo_green_dark"
-            android:textColor="#FFF"
-            android:padding="7dp"/>
-
-        <TextView
-            android:id="@+id/activity_main_text_photometer1"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="#FFF"
-            android:text="Luminosity"
-            android:textSize="15dp"
-            android:padding="5dp"
-            android:gravity="center"
-            android:layout_weight="1"
-            android:layout_marginLeft="5dp"/>
-    </LinearLayout>
-
-
-    <Button
-        android:id="@+id/activity_main_QuitApp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Quit"
-        android:padding="10dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="100dp"
-        android:textSize="20dp"
-        android:textStyle="italic"
-        android:background="@color/colorAccent"
-        android:textColor="#FFF"/>
+    </ScrollView>
 
 </LinearLayout>
