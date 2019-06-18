@@ -102,7 +102,7 @@
                     android:id="@+id/activity_main_text_velosity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Velosity (m/s)"
+                    android:text="Linear Velocity (m/s)"
                     android:textSize="15dp"
                     android:background="@android:color/holo_green_dark"
                     android:textColor="#FFF"
@@ -146,6 +146,65 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="5dp"
                     />
+
+            </LinearLayout>
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginHorizontal="5dp">
+
+                <TextView
+                    android:id="@+id/activity_main_text_gyroscope"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Angular velocity (rad/s)"
+                    android:textSize="15dp"
+                    android:background="@android:color/holo_green_dark"
+                    android:textColor="#FFF"
+                    android:padding="7dp"/>
+
+                <TextView
+                    android:id="@+id/activity_main_text_xgyroscope"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="#FFF"
+                    android:text="ωx"
+                    android:textSize="15dp"
+                    android:padding="5dp"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp"
+                    />
+
+                <TextView
+                    android:id="@+id/activity_main_text_ygyroscope"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="#FFF"
+                    android:text="ωy"
+                    android:textSize="15dp"
+                    android:padding="5dp"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp"
+                    />
+
+                <TextView
+                    android:id="@+id/activity_main_text_zgyroscope"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="#FFF"
+                    android:text="ωz"
+                    android:textSize="15dp"
+                    android:padding="5dp"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp"
+                    />
+
 
             </LinearLayout>
 
@@ -298,32 +357,92 @@
 
             <LinearLayout
 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginHorizontal="5dp">
-
-            <TextView
-                android:id="@+id/activity_main_text_photometer"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Light intensity (lux)"
-                android:textSize="15dp"
-                android:background="@android:color/holo_green_dark"
-                android:textColor="#FFF"
-                android:padding="7dp"/>
+                android:layout_marginTop="30dp"
+                android:layout_marginHorizontal="5dp">
 
-            <TextView
-                android:id="@+id/activity_main_text_photometer1"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="#FFF"
-                android:text="Luminosity"
-                android:textSize="15dp"
-                android:padding="5dp"
-                android:gravity="center"
-                android:layout_weight="1"
-                android:layout_marginLeft="5dp"/>
+                <TextView
+                    android:id="@+id/activity_main_text_photometer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Light intensity (lux)"
+                    android:textSize="15dp"
+                    android:background="@android:color/holo_green_dark"
+                    android:textColor="#FFF"
+                    android:padding="7dp"/>
+
+                <TextView
+                    android:id="@+id/activity_main_text_photometer1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="#FFF"
+                    android:text="Luminosity"
+                    android:textSize="15dp"
+                    android:padding="5dp"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginHorizontal="5dp">
+
+                <TextView
+                    android:id="@+id/activity_main_text_thermometer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Temperature (C°)"
+                    android:textSize="15dp"
+                    android:background="@android:color/holo_green_dark"
+                    android:textColor="#FFF"
+                    android:padding="7dp"/>
+
+                <TextView
+                    android:id="@+id/activity_main_text_thermometer1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="#FFF"
+                    android:text="T"
+                    android:textSize="15dp"
+                    android:padding="5dp"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginHorizontal="5dp">
+
+                <TextView
+                    android:id="@+id/activity_main_text_barometer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pressure (bar)"
+                    android:textSize="15dp"
+                    android:background="@android:color/holo_green_dark"
+                    android:textColor="#FFF"
+                    android:padding="7dp"/>
+
+                <TextView
+                    android:id="@+id/activity_main_text_barometer1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="#FFF"
+                    android:text="P"
+                    android:textSize="15dp"
+                    android:padding="5dp"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp"/>
             </LinearLayout>
 
             <Button
@@ -333,7 +452,8 @@
                 android:text="Quit"
                 android:padding="10dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="70dp"
+                android:layout_marginBottom="20dp"
                 android:textSize="20dp"
                 android:textStyle="italic"
                 android:background="@color/colorAccent"

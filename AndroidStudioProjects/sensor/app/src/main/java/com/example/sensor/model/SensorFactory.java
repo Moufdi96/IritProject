@@ -1,7 +1,10 @@
 package com.example.sensor.model;
 
 
-import java.util.Optional;
+import com.example.sensor.model.material_sensor.SAccelerometer;
+import com.example.sensor.model.material_sensor.SMagnetometer;
+import com.example.sensor.model.material_sensor.SPhotometer;
+import com.example.sensor.model.material_sensor.SProximity;
 
 public class SensorFactory {
 
@@ -24,6 +27,10 @@ public class SensorFactory {
                 break;
             case PHOTOMETER_SENSOR:
                 sensor = SPhotometer.getInstance(textArea);
+                break;
+            case GYROSCOPE_SENSOR:
+                sensor=SGyroscope.getInstance(textArea);
+                break;
         }
         return sensor;
     }

@@ -5,9 +5,10 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 
 /**
- * this is a GENERIC SENSOR
- *
- * blabla
+ * GSensor for "generic sensor" is the mother class of all material sensors classes
+ * it gathers the main and common attributes and methods that have to be included in each material (existent) sensor class,
+ * therefor each of these classes (with the SensorCategory enum = MATERIAL) must extend it.
+ * it implements the SensorEventListener interface,thus it allows receiving new notification from SensorManager when there's new sensor data
  */
 public class GSensor implements SensorEventListener {
     private Measure mMeasure;
@@ -24,6 +25,11 @@ public class GSensor implements SensorEventListener {
         mTextArea.setTextValue2(textArea.getTextValue2());
         mTextArea.setTextValue3(textArea.getTextValue3());
     }
+
+    /* this method is called when a new sensor event is detected by the sensor event listener
+     it reads the sensor type that has transmitted the measured data and perform the suitable action to that type
+     for example if the sensor type was an accelerometer it displays the results in a 3D form (s,y,z)
+     if sensor was a photometer or a proximity sensor it displays only one value  */
 
     @Override
     public void onSensorChanged(SensorEvent event) {
@@ -65,6 +71,8 @@ public class GSensor implements SensorEventListener {
                 System.out.println("\n");
         }
     }
+
+    //not yet implemented
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {

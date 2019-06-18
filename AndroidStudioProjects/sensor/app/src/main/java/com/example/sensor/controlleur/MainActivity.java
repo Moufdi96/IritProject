@@ -1,7 +1,6 @@
 package com.example.sensor.controlleur;
 
 import android.content.Context;
-import android.hardware.Sensor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.hardware.SensorManager;
@@ -10,11 +9,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import com.example.sensor.R;
 import com.example.sensor.model.MainLayoutDesign;
-import com.example.sensor.model.SAccelerometer;
-import com.example.sensor.model.SMagnetometer;
-import com.example.sensor.model.SPhotometer;
-import com.example.sensor.model.SProximity;
-import com.example.sensor.model.SRotation;
+import com.example.sensor.model.material_sensor.SAccelerometer;
+import com.example.sensor.model.SGyroscope;
+import com.example.sensor.model.material_sensor.SMagnetometer;
+import com.example.sensor.model.material_sensor.SPhotometer;
+import com.example.sensor.model.material_sensor.SProximity;
+import com.example.sensor.model.virtual_sensor.SRotation;
 import com.example.sensor.model.SensorFactory;
 import com.example.sensor.model.SensorType;
 import com.example.sensor.model.TextArea;
@@ -30,12 +30,14 @@ public class MainActivity extends AppCompatActivity {
     private TextArea mTextAreaProximity;
     private TextArea mTextAreaPhotometer;
     private TextArea mTextAreaMagnetometer;
+    private TextArea mTextAreaGyroscope;
     private TextArea mTextAreaRotation;
 
     private SAccelerometer mSAccelerometer;
     private SProximity mSProximity;
     private SPhotometer mSPhotometer;
     private SMagnetometer mSMagnetometer;
+    private SGyroscope mSGyroscope;
     private SRotation mSRotation;
 
     @Override
@@ -51,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         mTextAreaProximity = new TextArea();
         mTextAreaPhotometer = new TextArea();
         mTextAreaMagnetometer = new TextArea();
+        mTextAreaGyroscope=new TextArea();
         mTextAreaRotation= new TextArea();
 
 
@@ -78,10 +81,16 @@ public class MainActivity extends AppCompatActivity {
         mTextAreaRotation.setTextValue2((TextView)findViewById(R.id.activity_main_text_yrotation));
         mTextAreaRotation.setTextValue3((TextView)findViewById(R.id.activity_main_text_zrotation));
 
+        mTextAreaGyroscope.setTextNameSensor((TextView)findViewById(R.id.activity_main_text_gyroscope));
+        mTextAreaGyroscope.setTextValue1((TextView)findViewById(R.id.activity_main_text_xgyroscope));
+        mTextAreaGyroscope.setTextValue2((TextView)findViewById(R.id.activity_main_text_ygyroscope));
+        mTextAreaGyroscope.setTextValue3((TextView)findViewById(R.id.activity_main_text_zgyroscope));
+
         mSAccelerometer=(SAccelerometer)mSensorFactory.creatSensor(SensorType.ACCELEROMETER_SENSOR,mTextAreaAccelerometer);
         mSProximity=(SProximity)mSensorFactory.creatSensor(SensorType.PROXIMITY_SENSOR,mTextAreaProximity);
         mSPhotometer=(SPhotometer)mSensorFactory.creatSensor(SensorType.PHOTOMETER_SENSOR,mTextAreaPhotometer);
         mSMagnetometer=(SMagnetometer)mSensorFactory.creatSensor(SensorType.MAGNETOMETER_SENSOR,mTextAreaMagnetometer);
+        mSGyroscope=(SGyroscope)mSensorFactory.creatSensor(SensorType.GYROSCOPE_SENSOR,mTextAreaGyroscope);
         //mSRotation=(SRotation) mSensorFactory.creatSensor(SensorType.ROTATION_SENSOR,mTextAreaRotation);
         mSRotation=SRotation.getInstance(mTextAreaRotation).get();
 
@@ -89,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
         mSProximity.setADefaultProximitySensor(mSensorManager);
         mSPhotometer.setADefaultPhotometerSensor(mSensorManager);
         mSMagnetometer.setDefaultMagnetometerSensor(mSensorManager);
+        mSGyroscope.setADefaultGyroscopeSensor(mSensorManager);
 
         mMainLayoutDesign.getButton().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,7 +130,10 @@ public class MainActivity extends AppCompatActivity {
         if(mSMagnetometer.getMagnetometerSensor().isPresent()&&mSAccelerometer.getAccelerometerSensor().isPresent()){
             mSensorManager.registerListener(mSRotation,mSAccelerometer.getAccelerometerSensor().get(),SensorManager.SENSOR_DELAY_UI);
             mSensorManager.registerListener(mSRotation,mSMagnetometer.getMagnetometerSensor().get(),SensorManager.SENSOR_DELAY_UI);
+        }
 
+        if (mSGyroscope.getGyroscopeSensor().isPresent()){
+            mSensorManager.registerListener(mSGyroscope,mSGyroscope.getGyroscopeSensor().get(),SensorManager.SENSOR_DELAY_UI);
         }
 
 

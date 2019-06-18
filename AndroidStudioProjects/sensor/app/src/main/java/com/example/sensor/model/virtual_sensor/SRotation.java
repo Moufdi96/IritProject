@@ -1,4 +1,4 @@
-package com.example.sensor.model;
+package com.example.sensor.model.virtual_sensor;
 
 //ce capteur est vertuel (combinaison du Magnétomètre et de l'acceléromètre)
 
@@ -6,10 +6,16 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+
+import com.example.sensor.model.SensorCategory;
+import com.example.sensor.model.SensorType;
+import com.example.sensor.model.TextArea;
+
 import java.util.Optional;
 
 public class SRotation implements SensorEventListener {
     private static final SensorType mSensorType = SensorType.ROTATION_SENSOR;
+    private static SensorCategory sSensorCategory = SensorCategory.VIRTUAL;
     private static Optional<SRotation> instance = Optional.empty();
     private float[] mMeasureAccelerometer;
     private float[] mMeasureMagnetomter;
