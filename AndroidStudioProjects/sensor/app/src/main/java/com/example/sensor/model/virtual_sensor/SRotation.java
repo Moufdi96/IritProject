@@ -1,17 +1,17 @@
 package com.example.sensor.model.virtual_sensor;
 
-//ce capteur est vertuel (combinaison du Magnétomètre et de l'acceléromètre)
-
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-
 import com.example.sensor.model.SensorCategory;
 import com.example.sensor.model.SensorType;
 import com.example.sensor.model.TextArea;
-
 import java.util.Optional;
+
+/*this sensor is virtual (no such a sensor is embedded in the smartphone) the acquisition of the orientation of the smartphone
+requires to combine magnetometer and accelerometer data*/
+
 
 public class SRotation implements SensorEventListener {
     private static final SensorType mSensorType = SensorType.ROTATION_SENSOR;
@@ -22,8 +22,6 @@ public class SRotation implements SensorEventListener {
     private float [] orientationValues = new float[3];
     private float [] rotationMatrix = new float[9];
     public TextArea mTextArea;
-    private static float sensorPoweronsumption;
-    private static float maxRange;
 
     private SRotation(TextArea textArea) {
         mTextArea=textArea;
@@ -38,7 +36,7 @@ public class SRotation implements SensorEventListener {
         }
         return instance;
     }
-
+    //
     @Override
     public void onSensorChanged(SensorEvent event) {
         Sensor sensor=event.sensor;
@@ -64,8 +62,8 @@ public class SRotation implements SensorEventListener {
     public void getOrientation(){
         SensorManager.getRotationMatrix(rotationMatrix,null,mMeasureAccelerometer,mMeasureMagnetomter);
         SensorManager.getOrientation(rotationMatrix,orientationValues);
-        mTextArea.getTextValue1().setText("X=" + (double)Math.round((orientationValues[0]*180/3.14)*100)/ 100);
-        mTextArea.getTextValue2().setText("Y=" + (double)Math.round((orientationValues[1]*180/3.14)*100)/ 100);
-        mTextArea.getTextValue3().setText("Z=" + (double)Math.round((orientationValues[2]*180/3.14)*100)/ 100);
+        mTextArea.getTextValue1().setText("X=" + (double)Math.round((orientationValues[0]*180/3.14)*100)/ 100); //Yaw
+        mTextArea.getTextValue2().setText("Y=" + (double)Math.round((orientationValues[1]*180/3.14)*100)/ 100); //Pitch
+        mTextArea.getTextValue3().setText("Z=" + (double)Math.round((orientationValues[2]*180/3.14)*100)/ 100); //Roll
     }
 }

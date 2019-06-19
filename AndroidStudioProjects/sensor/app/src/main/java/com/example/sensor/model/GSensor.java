@@ -1,5 +1,6 @@
 package com.example.sensor.model;
 
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -57,7 +58,15 @@ public class GSensor implements SensorEventListener {
                 System.out.println("\n");
                 break;
             case Sensor.TYPE_PROXIMITY:
-                mTextArea.getTextValue1().setText("" + (double)Math.round(mMeasure.getMesureX() * 100) / 100);
+               if (mMeasure.getMesureX()==0){
+                    mTextArea.getTextValue1().setText("Object detected");
+                    mTextArea.getTextValue1().setBackgroundColor(Color.GREEN);
+                } else {
+                    mTextArea.getTextValue1().setText("no object detected");
+                    mTextArea.getTextValue1().setBackgroundColor(0xffffffff);
+                }
+                //mTextArea.getTextValue1().setText(""+mMeasure.getMesureX());
+
                 System.out.println("\n");
                 System.out.println("Proximity measure\n");
                 System.out.println("time of the new measured value= "+event.timestamp+ "\n"+"x="+event.values[0]);
