@@ -5,8 +5,10 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationProvider;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,9 +16,11 @@ import android.hardware.SensorManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
 import com.example.sensor.R;
 import com.example.sensor.model.MainLayoutDesign;
 import com.example.sensor.model.material_sensor.SAccelerometer;
+
 import com.example.sensor.model.material_sensor.SGyroscope;
 import com.example.sensor.model.material_sensor.SMagnetometer;
 import com.example.sensor.model.material_sensor.SPhotometer;
@@ -26,12 +30,11 @@ import com.example.sensor.model.SensorFactory;
 import com.example.sensor.model.SensorType;
 import com.example.sensor.model.TextArea;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity /*implements LocationListener*/ {
     private MainLayoutDesign mMainLayoutDesign;
     private SensorFactory mSensorFactory;
     private SensorManager mSensorManager;
-    private LocationManager mLocationManager;
-    Criteria critere = new Criteria();
+    //private LocationManager mLocationManager;
 
 
     private TextArea mTextAreaAccelerometer;
@@ -40,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private TextArea mTextAreaMagnetometer;
     private TextArea mTextAreaGyroscope;
     private TextArea mTextAreaRotation;
+    private TextArea mTextAreaGPS;
 
     private SAccelerometer mSAccelerometer;
     private SProximity mSProximity;
@@ -50,39 +54,17 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-       /* mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-// Pour indiquer la précision voulue
-// On peut mettre ACCURACY_FINE pour une haute précision ou ACCURACY_COARSE pour une moins bonne précision
-        critere.setAccuracy(Criteria.ACCURACY_FINE);
-
-// Est-ce que le fournisseur doit être capable de donner une altitude ?
-        critere.setAltitudeRequired(true);
-
-// Est-ce que le fournisseur doit être capable de donner une direction ?
-        critere.setBearingRequired(true);
-
-// Est-ce que le fournisseur peut être payant ?
-        critere.setCostAllowed(false);
-
-// Pour indiquer la consommation d'énergie demandée
-// Criteria.POWER_HIGH pour une haute consommation, Criteria.POWER_MEDIUM pour une consommation moyenne et Criteria.POWER_LOW pour une basse consommation
-        critere.setPowerRequirement(Criteria.POWER_HIGH);
-
-// Est-ce que le fournisseur doit être capable de donner une vitesse ?
-        critere.setSpeedRequired(true);
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-
-        LocationProvider locationProvider=mLocationManager.getProvider(mLocationManager.GPS_PROVIDER);
-        mLocationManager.requestLocationUpdates(locationProvider.getName(),);
-        // System.out.println("provider="+providerName);
-        //if(mLocationManager.getProvider(providerName)==null)
-        // System.out.println("jkgfjghrfyugfkihu");
-        //LocationProvider locationProvider=mLocationManager.getProvider(providerName);
-        System.out.println("jkgfuihih   "+locationProvider.getName()+"   "+ locationProvider.getPowerRequirement());*/
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        /*mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        LocationProvider locationProvider = mLocationManager.getProvider(mLocationManager.NETWORK_PROVIDER);
+        System.out.println("Provider name   " + locationProvider.getName() + "required power   " + locationProvider.getPowerRequirement() + "\n");
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ) {
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},1);
+            return;
+        }*/
 
         mMainLayoutDesign = MainLayoutDesign.getInstance();
         mSensorFactory = new SensorFactory();
@@ -95,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
         mTextAreaMagnetometer = new TextArea();
         mTextAreaGyroscope = new TextArea();
         mTextAreaRotation = new TextArea();
+        mTextAreaGPS=new TextArea();
 
 
         mMainLayoutDesign.setTextTitle((TextView) findViewById(R.id.activity_main_text_titre));
@@ -126,12 +109,16 @@ public class MainActivity extends AppCompatActivity {
         mTextAreaGyroscope.setTextValue2((TextView) findViewById(R.id.activity_main_text_ygyroscope));
         mTextAreaGyroscope.setTextValue3((TextView) findViewById(R.id.activity_main_text_zgyroscope));
 
+        /*mTextAreaGPS.setTextNameSensor((TextView)findViewById(R.id.activity_main_text_gps));
+        mTextAreaGPS.setTextValue1((TextView)findViewById(R.id.activity_main_text_latitude));
+        mTextAreaGPS.setTextValue2((TextView)findViewById(R.id.activity_main_text_longitude));
+        mTextAreaGPS.setTextValue3((TextView)findViewById(R.id.activity_main_text_altitude));*/
+
         mSAccelerometer = (SAccelerometer) mSensorFactory.creatSensor(SensorType.ACCELEROMETER_SENSOR, mTextAreaAccelerometer);
         mSProximity = (SProximity) mSensorFactory.creatSensor(SensorType.PROXIMITY_SENSOR, mTextAreaProximity);
         mSPhotometer = (SPhotometer) mSensorFactory.creatSensor(SensorType.PHOTOMETER_SENSOR, mTextAreaPhotometer);
         mSMagnetometer = (SMagnetometer) mSensorFactory.creatSensor(SensorType.MAGNETOMETER_SENSOR, mTextAreaMagnetometer);
         mSGyroscope = (SGyroscope) mSensorFactory.creatSensor(SensorType.GYROSCOPE_SENSOR, mTextAreaGyroscope);
-        //mSRotation=(SRotation) mSensorFactory.creatSensor(SensorType.ROTATION_SENSOR,mTextAreaRotation);
         mSRotation = SRotation.getInstance(mTextAreaRotation).get();
 
         mSAccelerometer.setADefaultAccelerometerSensor(mSensorManager);
@@ -147,6 +134,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    /*@Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        System.out.println("ffff"+grantResults[0]);
+        System.out.println("RQ"+requestCode);
+        switch (requestCode) {
+            case 1:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    mLocationManager.requestLocationUpdates("network", 5000, 0, this);
+                    System.out.println("latitude  "+mLocationManager.getLastKnownLocation("gps").getAltitude());
+                    mTextAreaGPS.getTextValue1().setText(""+(double)Math.round(mLocationManager.getLastKnownLocation("gps").getLatitude()* 100000000) / 100000000+"°");
+                    mTextAreaGPS.getTextValue2().setText(""+(double)Math.round(mLocationManager.getLastKnownLocation("gps").getLongitude()* 100000000) / 100000000+"°");
+                    mTextAreaGPS.getTextValue3().setText(""+(double)Math.round(mLocationManager.getLastKnownLocation("gps").getAltitude()* 100) / 100+" (m)");
+                }
+        }
+    }*/
 
     protected void onResume() {
         super.onResume();
@@ -175,8 +179,6 @@ public class MainActivity extends AppCompatActivity {
         if (mSGyroscope.getGyroscopeSensor().isPresent()) {
             mSensorManager.registerListener(mSGyroscope, mSGyroscope.getGyroscopeSensor().get(), SensorManager.SENSOR_DELAY_UI);
         }
-
-
     }
 
     protected void onPause() {
@@ -187,22 +189,27 @@ public class MainActivity extends AppCompatActivity {
         mSensorManager.unregisterListener(mSMagnetometer, mSMagnetometer.getMagnetometerSensor().get());
     }
 
-   /* public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case 1: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+    /*@Override
 
-                } else {
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
-                }
-                return;
-            }
-            // other 'case' lines to check for other
-            // permissions this app might request
-        }
+    public void onLocationChanged(Location location) {
+        mTextAreaGPS.getTextValue1().setText(""+(double)Math.round(mLocationManager.getLastKnownLocation("gps").getLatitude()* 100000000) / 100000000+"°");
+        mTextAreaGPS.getTextValue2().setText(""+(double)Math.round(mLocationManager.getLastKnownLocation("gps").getLongitude()* 100000000) / 100000000+"°");
+        mTextAreaGPS.getTextValue3().setText(""+(double)Math.round(mLocationManager.getLastKnownLocation("gps").getAltitude()* 100) / 100+" (m)");
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
     }*/
 }
 

@@ -10,6 +10,8 @@ import android.hardware.SensorEventListener;
  * it gathers the main and common attributes and methods that have to be included in each material (existent) sensor class,
  * therefor each of these classes (with the SensorCategory enum = MATERIAL) must extend it.
  * it implements the SensorEventListener interface,thus it allows receiving new notification from SensorManager when there's new sensor data
+ *
+ * @author
  */
 public class GSensor implements SensorEventListener {
     private Measure mMeasure;

@@ -445,6 +445,65 @@
                     android:layout_marginLeft="5dp"/>
             </LinearLayout>
 
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginHorizontal="5dp">
+
+                <TextView
+                    android:id="@+id/activity_main_text_gps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="GPS"
+                    android:textSize="15dp"
+                    android:background="@android:color/holo_green_dark"
+                    android:textColor="#FFF"
+                    android:padding="7dp"/>
+
+                <TextView
+                    android:id="@+id/activity_main_text_latitude"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="#FFF"
+                    android:text="Latitude°"
+                    android:textSize="15dp"
+                    android:padding="5dp"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp"
+                    />
+
+                <TextView
+                    android:id="@+id/activity_main_text_longitude"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="#FFF"
+                    android:text="Longitude0°"
+                    android:textSize="15dp"
+                    android:padding="5dp"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp"
+                    />
+
+                <TextView
+                    android:id="@+id/activity_main_text_altitude"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="#FFF"
+                    android:text="Altitude (m)"
+                    android:textSize="15dp"
+                    android:padding="5dp"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp"/>
+
+
+            </LinearLayout>
+
+
             <Button
                 android:id="@+id/activity_main_QuitApp"
                 android:layout_width="wrap_content"
