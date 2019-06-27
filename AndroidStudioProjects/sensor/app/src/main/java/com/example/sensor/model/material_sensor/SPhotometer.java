@@ -1,5 +1,6 @@
 package com.example.sensor.model.material_sensor;
 
+import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 
@@ -20,9 +21,11 @@ public class SPhotometer extends GSensor {
         super(textArea);
     }
 
-    public static SPhotometer getInstance(TextArea textArea){
-        if (!instance.isPresent())
-        {   instance=Optional.ofNullable(new SPhotometer(textArea));
+    public static SPhotometer getInstance(PackageManager packageManager,TextArea textArea){
+        if (!instance.isPresent()) {
+            if (packageManager.hasSystemFeature(PackageManager.FEATURE_SENSOR_LIGHT)){          //check whether the device is equipped with an Accelerometer
+                instance=Optional.ofNullable(new SPhotometer(textArea));
+            }
         }
         return instance.get();
     }
@@ -32,7 +35,9 @@ public class SPhotometer extends GSensor {
     }
 
     public void setADefaultPhotometerSensor(SensorManager sensorManager) {
-        mPhotometerSensor =Optional.ofNullable(sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT));
+        if(instance.isPresent()){
+            mPhotometerSensor =Optional.ofNullable(sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT));
+        }
     }
 }
 

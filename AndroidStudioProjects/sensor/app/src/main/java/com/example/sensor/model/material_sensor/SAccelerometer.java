@@ -1,5 +1,6 @@
 package com.example.sensor.model.material_sensor;
 
+import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 
@@ -20,9 +21,11 @@ public class SAccelerometer extends GSensor {
         super(textArea);
     }
 
-    public static SAccelerometer getInstance(TextArea textArea){
-        if (!instance.isPresent())
-        {   instance=Optional.ofNullable(new SAccelerometer(textArea));
+    public static SAccelerometer getInstance(PackageManager packageManager,TextArea textArea){
+        if (!instance.isPresent()) {
+            if (packageManager.hasSystemFeature(PackageManager.FEATURE_SENSOR_ACCELEROMETER)){          //check whether the device is equipped with an Accelerometer
+                instance=Optional.ofNullable(new SAccelerometer(textArea));
+            }
         }
         return instance.get();
       }
@@ -31,8 +34,10 @@ public class SAccelerometer extends GSensor {
         return mAccelerometerSensor;
     }
 
-    public void setADefaultAccelerometerSensor(SensorManager sensorManager) {
-        mAccelerometerSensor =Optional.ofNullable(sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER));
+    public void setADefaultAccelerometerSensor(SensorManager sensorManager){
+        if(instance.isPresent()){
+            mAccelerometerSensor =Optional.ofNullable(sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER));
+        }
     }
 }
 

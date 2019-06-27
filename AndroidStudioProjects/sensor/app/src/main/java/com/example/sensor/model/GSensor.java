@@ -1,5 +1,6 @@
 package com.example.sensor.model;
 
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -7,7 +8,7 @@ import android.hardware.SensorEventListener;
 
 /**
  * GSensor for "generic sensor" is the mother class of all material sensors classes
- * it gathers the main and common attributes and methods that have to be included in each material (existent) sensor class,
+ * it gathers the main and common attributes and methods that have to be included in each material (physical) sensor class,
  * therefor each of these classes (with the SensorCategory enum = MATERIAL) must extend it.
  * it implements the SensorEventListener interface,thus it allows receiving new notification from SensorManager when there's new sensor data
  *
@@ -18,6 +19,7 @@ public class GSensor implements SensorEventListener {
     public TextArea mTextArea;
     private static float sensorPoweronsumption;
     private static float maxRange;
+
 
 
 

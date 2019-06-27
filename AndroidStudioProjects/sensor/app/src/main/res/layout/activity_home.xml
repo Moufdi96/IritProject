@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFF"
+    android:orientation="vertical"
+    tools:context=".controlleur.HomeActivity">
+
+    <TextView
+        android:id="@+id/activity_main_text_titre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text="SensorPro"
+        android:textColor="#FFF"
+        android:textSize="35dp"
+        android:textStyle="bold" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:verticalScrollbarPosition="left">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/home_activity_text_greetings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:gravity="center"
+                android:text="Welcome to SensorPro !\n Please select the sensor type you want to use"
+                android:textColor="#201"
+                android:textStyle="normal" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="50dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="30dp"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/activity_home_button_accelerometer"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:background="#FFF"
+                        android:elevation="2.75dp"
+                        android:src="@drawable/acceleration" />
+
+                    <TextView
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="1.5dp"
+                        android:text="Accelerometer"
+                        android:textSize="12dp"
+                        android:textStyle="italic" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="30dp"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/activity_home_button_magnetometer"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:background="#FFF"
+                        android:elevation="2.75dp"
+                        android:src="@drawable/magneticf" />
+
+                    <TextView
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="1.5dp"
+                        android:text="Magnetometer"
+                        android:textSize="12dp"
+                        android:textStyle="italic" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/activity_home_button_gyroscope"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:background="#FFF"
+                        android:elevation="2.75dp"
+                        android:src="@drawable/gyro" />
+
+                    <TextView
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="1.5dp"
+                        android:text="Gyroscope"
+                        android:textSize="12dp"
+                        android:textStyle="italic" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="80dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="30dp"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/activity_home_button_inclinometer"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:background="#FFF"
+                        android:elevation="2.75dp"
+                        android:src="@drawable/orientation" />
+
+                    <TextView
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="1.5dp"
+                        android:text="Inclinometer"
+                        android:textSize="12dp"
+                        android:textStyle="italic" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="30dp"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/activity_home_button_proximeter"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:background="#FFF"
+                        android:elevation="2.75dp"
+                        android:src="@drawable/proximity" />
+
+                    <TextView
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="1.5dp"
+                        android:text="Proximeter"
+                        android:textSize="12dp"
+                        android:textStyle="italic" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/activity_home_button_photometer"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:background="#FFF"
+                        android:elevation="2.75dp"
+                        android:src="@drawable/photometer" />
+
+                    <TextView
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="1.5dp"
+                        android:text="Photometer"
+                        android:textSize="12dp"
+                        android:textStyle="italic" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="80dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/activity_home_button_gps"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:background="#FFF"
+                        android:elevation="2.75dp"
+                        android:src="@drawable/gps" />
+
+                    <TextView
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:elevation="2.75dp"
+                        android:gravity="center"
+                        android:padding="1.5dp"
+                        android:text="GPS"
+                        android:textSize="12dp"
+                        android:textStyle="italic" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/activity_home_button_quitApp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="80dp"
+                android:layout_marginBottom="35dp"
+                android:background="@color/colorAccent"
+                android:padding="10dp"
+                android:text="Quit"
+                android:textColor="#FFF"
+                android:textSize="20dp"
+                android:textStyle="italic" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

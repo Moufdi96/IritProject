@@ -2,6 +2,7 @@ package com.example.sensor.model.material_sensor;
 
 
 
+import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 
@@ -23,9 +24,11 @@ public class SProximity extends GSensor {
         super(textArea);
     }
 
-    public static SProximity getInstance(TextArea textArea){
-        if (!instance.isPresent())
-        {   instance=Optional.ofNullable(new SProximity(textArea));
+    public static SProximity getInstance(PackageManager packageManager,TextArea textArea){
+        if (!instance.isPresent()) {
+            if (packageManager.hasSystemFeature(PackageManager.FEATURE_SENSOR_PROXIMITY)){          //check whether the device is equipped with an Proximity
+                instance=Optional.ofNullable(new SProximity(textArea));
+            }
         }
         return instance.get();
     }
@@ -35,6 +38,8 @@ public class SProximity extends GSensor {
     }
 
     public void setADefaultProximitySensor(SensorManager sensorManager) {
-        mProximitySensor=Optional.ofNullable(sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY));
+        if(instance.isPresent()){
+            mProximitySensor=Optional.ofNullable(sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY));
+        }
     }
 }

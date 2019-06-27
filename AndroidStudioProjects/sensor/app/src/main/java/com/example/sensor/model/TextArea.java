@@ -43,4 +43,10 @@ public class TextArea  {
         mTextValue3 = textValue3;
     }
 
+    public void setVisiblityState(int visiblityState){
+        mTextNameSensor.setVisibility(visiblityState);
+        mTextValue1.setVisibility(visiblityState);
+        mTextValue2.setVisibility(visiblityState);
+        mTextValue3.setVisibility(visiblityState);
+    }
 }

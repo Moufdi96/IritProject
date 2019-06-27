@@ -1,5 +1,6 @@
 package com.example.sensor.model.material_sensor;
 
+import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 
@@ -23,15 +24,19 @@ public class SMagnetometer extends GSensor {
         return mMagnetometerSensor;
     }
 
-    public static SMagnetometer getInstance(TextArea textArea) {
-        if(!instance.isPresent()){
-            instance=Optional.ofNullable(new SMagnetometer(textArea));
+    public static SMagnetometer getInstance(PackageManager packageManager,TextArea textArea) {
+        if (!instance.isPresent()) {
+            if (packageManager.hasSystemFeature(PackageManager.FEATURE_SENSOR_COMPASS)){          //check whether the device is equipped with an Accelerometer
+                instance=Optional.ofNullable(new SMagnetometer(textArea));
+            }
         }
         return instance.get();
     }
 
 
     public void setDefaultMagnetometerSensor(SensorManager sensorManager){
-        mMagnetometerSensor=Optional.ofNullable(sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD));
+        if(instance.isPresent()){
+            mMagnetometerSensor=Optional.ofNullable(sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD));
+        }
     }
 }
