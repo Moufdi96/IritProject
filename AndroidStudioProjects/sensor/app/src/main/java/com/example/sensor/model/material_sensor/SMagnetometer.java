@@ -24,11 +24,15 @@ public class SMagnetometer extends GSensor {
         return mMagnetometerSensor;
     }
 
-    public static SMagnetometer getInstance(PackageManager packageManager,TextArea textArea) {
+    public static SMagnetometer getInstance(PackageManager packageManager,TextArea textArea,SensorManager sensorManager) {
         if (!instance.isPresent()) {
             if (packageManager.hasSystemFeature(PackageManager.FEATURE_SENSOR_COMPASS)){          //check whether the device is equipped with an Accelerometer
                 instance=Optional.ofNullable(new SMagnetometer(textArea));
             }
+        }
+
+        if(instance.isPresent()){
+            instance.get().mMagnetometerSensor = Optional.ofNullable(sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD));
         }
         return instance.get();
     }

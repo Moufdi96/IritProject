@@ -21,12 +21,16 @@ public class SPhotometer extends GSensor {
         super(textArea);
     }
 
-    public static SPhotometer getInstance(PackageManager packageManager,TextArea textArea){
+    public static SPhotometer getInstance(PackageManager packageManager,TextArea textArea,SensorManager sensorManager){
         if (!instance.isPresent()) {
             if (packageManager.hasSystemFeature(PackageManager.FEATURE_SENSOR_LIGHT)){          //check whether the device is equipped with an Accelerometer
                 instance=Optional.ofNullable(new SPhotometer(textArea));
             }
         }
+
+        if(instance.isPresent()){
+            instance.get().mPhotometerSensor = Optional.ofNullable(sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT));
+    }
         return instance.get();
     }
 

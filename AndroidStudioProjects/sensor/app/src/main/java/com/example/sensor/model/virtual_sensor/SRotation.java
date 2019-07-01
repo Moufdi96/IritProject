@@ -62,8 +62,8 @@ public class SRotation implements SensorEventListener {
     public void getOrientation(){
         SensorManager.getRotationMatrix(rotationMatrix,null,mMeasureAccelerometer,mMeasureMagnetomter);
         SensorManager.getOrientation(rotationMatrix,orientationValues);
-        mTextArea.getTextValue1().setText("X=" + (double)Math.round((orientationValues[0]*180/3.14)*100)/ 100); //Yaw
-        mTextArea.getTextValue2().setText("Y=" + (double)Math.round((orientationValues[1]*180/3.14)*100)/ 100); //Pitch
-        mTextArea.getTextValue3().setText("Z=" + (double)Math.round((orientationValues[2]*180/3.14)*100)/ 100); //Roll
+        mTextArea.getTextValue1().setText("X=" + (double)Math.round((orientationValues[0]*180/3.14)*100)/ 100+"°"); //Yaw
+        mTextArea.getTextValue2().setText("Y=" + (double)Math.round((orientationValues[1]*180/3.14)*100)/ 100+"°"); //Pitch
+        mTextArea.getTextValue3().setText("Z=" + (double)Math.round((orientationValues[2]*180/3.14)*100)/ 100+"°"); //Roll
     }
 }

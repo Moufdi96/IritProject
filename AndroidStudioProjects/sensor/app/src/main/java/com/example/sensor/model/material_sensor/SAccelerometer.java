@@ -21,11 +21,15 @@ public class SAccelerometer extends GSensor {
         super(textArea);
     }
 
-    public static SAccelerometer getInstance(PackageManager packageManager,TextArea textArea){
+    public static SAccelerometer getInstance(PackageManager packageManager, TextArea textArea, SensorManager sensorManager ){
         if (!instance.isPresent()) {
             if (packageManager.hasSystemFeature(PackageManager.FEATURE_SENSOR_ACCELEROMETER)){          //check whether the device is equipped with an Accelerometer
                 instance=Optional.ofNullable(new SAccelerometer(textArea));
             }
+        }
+
+        if(instance.isPresent()){
+            instance.get().mAccelerometerSensor = Optional.ofNullable(sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER));
         }
         return instance.get();
       }
@@ -34,11 +38,11 @@ public class SAccelerometer extends GSensor {
         return mAccelerometerSensor;
     }
 
-    public void setADefaultAccelerometerSensor(SensorManager sensorManager){
+    /*public void setADefaultAccelerometerSensor(SensorManager sensorManager){
         if(instance.isPresent()){
-            mAccelerometerSensor =Optional.ofNullable(sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER));
+            mAccelerometerSensor = Optional.ofNullable(sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER));
         }
-    }
+    }*/
 }
 
 

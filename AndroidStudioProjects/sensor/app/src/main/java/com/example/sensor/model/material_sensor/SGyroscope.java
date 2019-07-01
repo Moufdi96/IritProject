@@ -22,11 +22,15 @@ public class SGyroscope extends GSensor {
         super(textArea);
     }
 
-    public static SGyroscope getInstance(PackageManager packageManager,TextArea textArea){
+    public static SGyroscope getInstance(PackageManager packageManager,TextArea textArea,SensorManager sensorManager){
         if (!instance.isPresent()) {
             if (packageManager.hasSystemFeature(PackageManager.FEATURE_SENSOR_GYROSCOPE)){          //check whether the device is equipped with an Accelerometer
                 instance=Optional.ofNullable(new SGyroscope(textArea));
             }
+        }
+
+        if(instance.isPresent()){
+            instance.get().mGyroscopeSensor = Optional.ofNullable(sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE));
         }
         return instance.get();
     }

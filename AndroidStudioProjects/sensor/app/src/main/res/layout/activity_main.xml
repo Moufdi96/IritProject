@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="5dp"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="80dp"
         android:orientation="vertical">
 
         <TextView
@@ -42,11 +42,11 @@
 
         <TextView
             android:id="@+id/activity_main_text_value1"
-            android:layout_width="100dp"
-            android:layout_height="35dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="5dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="80dp"
             android:layout_weight="1"
             android:background="#FFF"
             android:gravity="center"
@@ -58,8 +58,8 @@
 
         <TextView
             android:id="@+id/activity_main_text_value2"
-            android:layout_width="100dp"
-            android:layout_height="35dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="30dp"
@@ -72,8 +72,8 @@
 
         <TextView
             android:id="@+id/activity_main_text_value3"
-            android:layout_width="100dp"
-            android:layout_height="35dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="30dp"
@@ -84,20 +84,20 @@
             android:text="v3"
             android:textSize="15dp" />
 
+        <Button
+            android:id="@+id/activity_main_QuitApp"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:text="Quit"
+            android:padding="10dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="100dp"
+            android:layout_marginBottom="20dp"
+            android:textSize="18dp"
+            android:textStyle="italic"
+            android:background="@color/colorAccent"
+            android:textColor="#FFF"/>
+
 
     </LinearLayout>
-
-        <Button
-        android:id="@+id/activity_main_QuitApp"
-        android:layout_width="100dp"
-        android:layout_height="40dp"
-        android:text="Quit"
-        android:padding="10dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="70dp"
-        android:layout_marginBottom="20dp"
-        android:textSize="18dp"
-        android:textStyle="italic"
-        android:background="@color/colorAccent"
-        android:textColor="#FFF"/>
 </LinearLayout>

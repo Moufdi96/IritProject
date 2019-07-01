@@ -13,7 +13,7 @@ import com.example.sensor.R;
 
 public class HomeActivity extends AppCompatActivity {
     private ImageButton mBAccelerometer;
-    private ImageButton mBMangnetometer;
+    private ImageButton mBMagnetometer;
     private ImageButton mBGyroscope;
     private ImageButton mBInclinomete;
     private ImageButton mBProximeter;
@@ -22,6 +22,7 @@ public class HomeActivity extends AppCompatActivity {
     private Button mBQuitApp;
     private PackageManager mPackageManager;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,11 +30,12 @@ public class HomeActivity extends AppCompatActivity {
 
         mPackageManager=this.getPackageManager();
 
+
         mBAccelerometer = (ImageButton) findViewById(R.id.activity_home_button_accelerometer);
         mBAccelerometer.setTag("accelerometer");
 
-        mBMangnetometer = (ImageButton) findViewById(R.id.activity_home_button_magnetometer);
-        mBMangnetometer.setTag("magnetometer");
+        mBMagnetometer = (ImageButton) findViewById(R.id.activity_home_button_magnetometer);
+        mBMagnetometer.setTag("magnetometer");
 
         mBGyroscope = (ImageButton) findViewById(R.id.activity_home_button_gyroscope);
         mBGyroscope.setTag("gyroscope");
@@ -56,33 +58,47 @@ public class HomeActivity extends AppCompatActivity {
         mBAccelerometer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String sensorToEnable = (String) v.getTag();
-                Intent mainActivity = new Intent(HomeActivity.this, MainActivity.class);
-                mainActivity.putExtra("sensor to enable", sensorToEnable);
-                startActivity(mainActivity);
+                boolean mSensorExistence;
+                mSensorExistence=mPackageManager.hasSystemFeature(PackageManager.FEATURE_SENSOR_ACCELEROMETER);
+                if (mSensorExistence){
+                    String sensorToEnable = (String) v.getTag();
+                    Intent mainActivity = new Intent(HomeActivity.this, MainActivity.class);
+                    mainActivity.putExtra("sensor to enable", sensorToEnable);
+                    startActivity(mainActivity);
+                }else {
+                    Toast.makeText(HomeActivity.this,"Accelerometer not detected for this device",Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
-        mBMangnetometer.setOnClickListener(new View.OnClickListener() {
+        mBMagnetometer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String sensorToEnable = (String) v.getTag();
-                Intent mainActivity = new Intent(HomeActivity.this, MainActivity.class);
-                mainActivity.putExtra("sensor to enable", sensorToEnable);
-                startActivity(mainActivity);
+                boolean mSensorExistence;
+                mSensorExistence=mPackageManager.hasSystemFeature(PackageManager.FEATURE_SENSOR_COMPASS);
+                if (mSensorExistence){
+                    String sensorToEnable = (String) v.getTag();
+                    Intent mainActivity = new Intent(HomeActivity.this, MainActivity.class);
+                    mainActivity.putExtra("sensor to enable", sensorToEnable);
+                    startActivity(mainActivity);
+                }else {
+                    Toast.makeText(HomeActivity.this,"Magnetometer not detected for this device",Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         mBGyroscope.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if( mPackageManager.hasSystemFeature(PackageManager.FEATURE_SENSOR_GYROSCOPE)){ //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                boolean mSensorExistence;
+                mSensorExistence=mPackageManager.hasSystemFeature(PackageManager.FEATURE_SENSOR_GYROSCOPE);
+                if (mSensorExistence){
                     String sensorToEnable = (String) v.getTag();
                     Intent mainActivity = new Intent(HomeActivity.this, MainActivity.class);
                     mainActivity.putExtra("sensor to enable", sensorToEnable);
                     startActivity(mainActivity);
                 }else {
-                    Toast.makeText(HomeActivity.this,"no Gyroscope detected for this device",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(HomeActivity.this,"Gyroscope not detected for this device",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -90,40 +106,65 @@ public class HomeActivity extends AppCompatActivity {
         mBInclinomete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String sensorToEnable = (String) v.getTag();
-                Intent mainActivity = new Intent(HomeActivity.this, MainActivity.class);
-                mainActivity.putExtra("sensor to enable", sensorToEnable);
-                startActivity(mainActivity);
+                boolean mSensorExistence;
+                mSensorExistence = mPackageManager.hasSystemFeature(PackageManager.FEATURE_SENSOR_COMPASS) && mPackageManager.hasSystemFeature(PackageManager.FEATURE_SENSOR_ACCELEROMETER);
+                if (mSensorExistence) {
+                    String sensorToEnable = (String) v.getTag();
+                    Intent mainActivity = new Intent(HomeActivity.this, MainActivity.class);
+                    mainActivity.putExtra("sensor to enable", sensorToEnable);
+                    startActivity(mainActivity);
+                } else {
+                    Toast.makeText(HomeActivity.this, "Magnetometer or Accelerometer not detected for this device", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         mBProximeter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String sensorToEnable = (String) v.getTag();
-                Intent mainActivity = new Intent(HomeActivity.this, MainActivity.class);
-                mainActivity.putExtra("sensor to enable", sensorToEnable);
-                startActivity(mainActivity);
+                boolean mSensorExistence;
+                mSensorExistence=mPackageManager.hasSystemFeature(PackageManager.FEATURE_SENSOR_PROXIMITY);
+                if (mSensorExistence){
+                    String sensorToEnable = (String) v.getTag();
+                    Intent mainActivity = new Intent(HomeActivity.this, MainActivity.class);
+                    mainActivity.putExtra("sensor to enable", sensorToEnable);
+                    startActivity(mainActivity);
+                }else {
+                    Toast.makeText(HomeActivity.this,"Proximity sensor not detected for this device",Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         mBPhotomter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String sensorToEnable = (String) v.getTag();
-                Intent mainActivity = new Intent(HomeActivity.this, MainActivity.class);
-                mainActivity.putExtra("sensor to enable", sensorToEnable);
-                startActivity(mainActivity);
+                boolean mSensorExistence;
+                mSensorExistence=mPackageManager.hasSystemFeature(PackageManager.FEATURE_SENSOR_LIGHT);
+                if (mSensorExistence){
+                    String sensorToEnable = (String) v.getTag();
+                    Intent mainActivity = new Intent(HomeActivity.this, MainActivity.class);
+                    mainActivity.putExtra("sensor to enable", sensorToEnable);
+                    startActivity(mainActivity);
+                }else {
+                    Toast.makeText(HomeActivity.this,"Photometer or Accelerometer not detected for this device",Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         mBGps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String sensorToEnable = (String) v.getTag();
-                Intent mainActivity = new Intent(HomeActivity.this, MainActivity.class);
-                mainActivity.putExtra("sensor to enable", sensorToEnable);
-                startActivity(mainActivity);
+                boolean mSensorExistence;
+                //test présence du GPS pas encore implémenté
+                mSensorExistence=true;
+                if (mSensorExistence){
+                    String sensorToEnable = (String) v.getTag();
+                    Intent mainActivity = new Intent(HomeActivity.this, MainActivity.class);
+                    mainActivity.putExtra("sensor to enable", sensorToEnable);
+                    startActivity(mainActivity);
+                }else {
+                    Toast.makeText(HomeActivity.this,"GPS not detected for this device",Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
