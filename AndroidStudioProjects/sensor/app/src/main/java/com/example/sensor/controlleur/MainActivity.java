@@ -23,6 +23,7 @@ import com.example.sensor.R;
 import com.example.sensor.model.MainLayoutDesign;
 import com.example.sensor.model.material_sensor.SAccelerometer;
 
+import com.example.sensor.model.material_sensor.SGps;
 import com.example.sensor.model.material_sensor.SGyroscope;
 import com.example.sensor.model.material_sensor.SMagnetometer;
 import com.example.sensor.model.material_sensor.SPhotometer;
@@ -32,12 +33,12 @@ import com.example.sensor.model.SensorFactory;
 import com.example.sensor.model.SensorType;
 import com.example.sensor.model.TextArea;
 
-public class MainActivity extends AppCompatActivity /*implements LocationListener*/ {
+public class MainActivity extends AppCompatActivity {
     private MainLayoutDesign mMainLayoutDesign;
     private SensorFactory mSensorFactory;
     private SensorManager mSensorManager;
     private PackageManager mPackageManager;
-    //private LocationManager mLocationManager;
+    private LocationManager mLocationManager;
 
     private TextArea mAcuisitionDisplayArea;
 
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity /*implements LocationListene
     private SMagnetometer mSMagnetometer;
     private SGyroscope mSGyroscope;
     private SRotation mSRotation;
+    private SGps mSGps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,75 +58,83 @@ public class MainActivity extends AppCompatActivity /*implements LocationListene
         mMainLayoutDesign = MainLayoutDesign.getInstance();
         mSensorFactory = new SensorFactory();
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        mPackageManager=this.getPackageManager();
-
+        mPackageManager = this.getPackageManager();
         mMainLayoutDesign.setTextTitle((TextView) findViewById(R.id.activity_main_text_titre));
-        mMainLayoutDesign.setButton((Button)findViewById(R.id.activity_main_QuitApp));
+        mMainLayoutDesign.setButton((Button) findViewById(R.id.activity_main_QuitApp));
+        mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-        Intent intent= getIntent();
-        String sensorToEnable= intent.getStringExtra("sensor to enable");
-        switch(sensorToEnable){
+        Intent intent = getIntent();
+        String sensorToEnable = intent.getStringExtra("sensor to enable");
+        switch (sensorToEnable) {
             case "accelerometer":
                 mAcuisitionDisplayArea = new TextArea();
-                mAcuisitionDisplayArea.setTextNameSensor((TextView)findViewById(R.id.activity_main_text_sensortype));
-                mAcuisitionDisplayArea.setTextValue1((TextView)findViewById(R.id.activity_main_text_value1));
-                mAcuisitionDisplayArea.setTextValue2((TextView)findViewById(R.id.activity_main_text_value2));
-                mAcuisitionDisplayArea.setTextValue3((TextView)findViewById(R.id.activity_main_text_value3));
-                mSAccelerometer = (SAccelerometer) mSensorFactory.creatSensor(mPackageManager,SensorType.ACCELEROMETER_SENSOR,mAcuisitionDisplayArea, mSensorManager);
+                mAcuisitionDisplayArea.setTextNameSensor((TextView) findViewById(R.id.activity_main_text_sensortype));
+                mAcuisitionDisplayArea.setTextValue1((TextView) findViewById(R.id.activity_main_text_value1));
+                mAcuisitionDisplayArea.setTextValue2((TextView) findViewById(R.id.activity_main_text_value2));
+                mAcuisitionDisplayArea.setTextValue3((TextView) findViewById(R.id.activity_main_text_value3));
+                mSAccelerometer = (SAccelerometer) mSensorFactory.creatSensor(mPackageManager, SensorType.ACCELEROMETER_SENSOR, mAcuisitionDisplayArea, mSensorManager);
                 //mSAccelerometer.setADefaultAccelerometerSensor(mSensorManager);
                 mAcuisitionDisplayArea.getTextNameSensor().setText("Acceleration (m/s²)");
                 break;
             case "magnetometer":
                 mAcuisitionDisplayArea = new TextArea();
-                mAcuisitionDisplayArea.setTextNameSensor((TextView)findViewById(R.id.activity_main_text_sensortype));
-                mAcuisitionDisplayArea.setTextValue1((TextView)findViewById(R.id.activity_main_text_value1));
-                mAcuisitionDisplayArea.setTextValue2((TextView)findViewById(R.id.activity_main_text_value2));
-                mAcuisitionDisplayArea.setTextValue3((TextView)findViewById(R.id.activity_main_text_value3));
-                mSMagnetometer= (SMagnetometer)mSensorFactory.creatSensor(mPackageManager,SensorType.MAGNETOMETER_SENSOR,mAcuisitionDisplayArea, mSensorManager);
+                mAcuisitionDisplayArea.setTextNameSensor((TextView) findViewById(R.id.activity_main_text_sensortype));
+                mAcuisitionDisplayArea.setTextValue1((TextView) findViewById(R.id.activity_main_text_value1));
+                mAcuisitionDisplayArea.setTextValue2((TextView) findViewById(R.id.activity_main_text_value2));
+                mAcuisitionDisplayArea.setTextValue3((TextView) findViewById(R.id.activity_main_text_value3));
+                mSMagnetometer = (SMagnetometer) mSensorFactory.creatSensor(mPackageManager, SensorType.MAGNETOMETER_SENSOR, mAcuisitionDisplayArea, mSensorManager);
                 //mSMagnetometer.setDefaultMagnetometerSensor(mSensorManager);
                 mAcuisitionDisplayArea.getTextNameSensor().setText("Magnetic field (nTesla)");
                 break;
             case "gyroscope":
                 mAcuisitionDisplayArea = new TextArea();
-                mAcuisitionDisplayArea.setTextNameSensor((TextView)findViewById(R.id.activity_main_text_sensortype));
-                mAcuisitionDisplayArea.setTextValue1((TextView)findViewById(R.id.activity_main_text_value1));
-                mAcuisitionDisplayArea.setTextValue2((TextView)findViewById(R.id.activity_main_text_value2));
-                mAcuisitionDisplayArea.setTextValue3((TextView)findViewById(R.id.activity_main_text_value3));
-                mSGyroscope = (SGyroscope) mSensorFactory.creatSensor(mPackageManager,SensorType.GYROSCOPE_SENSOR,mAcuisitionDisplayArea, mSensorManager);
+                mAcuisitionDisplayArea.setTextNameSensor((TextView) findViewById(R.id.activity_main_text_sensortype));
+                mAcuisitionDisplayArea.setTextValue1((TextView) findViewById(R.id.activity_main_text_value1));
+                mAcuisitionDisplayArea.setTextValue2((TextView) findViewById(R.id.activity_main_text_value2));
+                mAcuisitionDisplayArea.setTextValue3((TextView) findViewById(R.id.activity_main_text_value3));
+                mSGyroscope = (SGyroscope) mSensorFactory.creatSensor(mPackageManager, SensorType.GYROSCOPE_SENSOR, mAcuisitionDisplayArea, mSensorManager);
                 //mSGyroscope.setADefaultGyroscopeSensor(mSensorManager);
                 mAcuisitionDisplayArea.getTextNameSensor().setText("Angular Velocity (rad/s)");
                 break;
 
             case "proximeter":
                 mAcuisitionDisplayArea = new TextArea();
-                mAcuisitionDisplayArea.setTextNameSensor((TextView)findViewById(R.id.activity_main_text_sensortype));
-                mAcuisitionDisplayArea.setTextValue1((TextView)findViewById(R.id.activity_main_text_value1));
-                mSProximity=(SProximity)mSensorFactory.creatSensor(mPackageManager,SensorType.PROXIMITY_SENSOR,mAcuisitionDisplayArea, mSensorManager);
+                mAcuisitionDisplayArea.setTextNameSensor((TextView) findViewById(R.id.activity_main_text_sensortype));
+                mAcuisitionDisplayArea.setTextValue1((TextView) findViewById(R.id.activity_main_text_value1));
+                mSProximity = (SProximity) mSensorFactory.creatSensor(mPackageManager, SensorType.PROXIMITY_SENSOR, mAcuisitionDisplayArea, mSensorManager);
                 //mSProximity.setADefaultProximitySensor(mSensorManager);
                 mAcuisitionDisplayArea.getTextNameSensor().setText("Proximity sensor");
-                ((TextView)findViewById(R.id.activity_main_text_value2)).setVisibility(View.INVISIBLE);
-                ((TextView)findViewById(R.id.activity_main_text_value3)).setVisibility(View.INVISIBLE);
+                ((TextView) findViewById(R.id.activity_main_text_value2)).setVisibility(View.INVISIBLE);
+                ((TextView) findViewById(R.id.activity_main_text_value3)).setVisibility(View.INVISIBLE);
                 break;
             case "photometer":
                 mAcuisitionDisplayArea = new TextArea();
-                mAcuisitionDisplayArea.setTextNameSensor((TextView)findViewById(R.id.activity_main_text_sensortype));
-                mAcuisitionDisplayArea.setTextValue1((TextView)findViewById(R.id.activity_main_text_value1));
-                mSPhotometer =(SPhotometer) mSensorFactory.creatSensor(mPackageManager,SensorType.PHOTOMETER_SENSOR,mAcuisitionDisplayArea, mSensorManager);
+                mAcuisitionDisplayArea.setTextNameSensor((TextView) findViewById(R.id.activity_main_text_sensortype));
+                mAcuisitionDisplayArea.setTextValue1((TextView) findViewById(R.id.activity_main_text_value1));
+                mSPhotometer = (SPhotometer) mSensorFactory.creatSensor(mPackageManager, SensorType.PHOTOMETER_SENSOR, mAcuisitionDisplayArea, mSensorManager);
                 //mSPhotometer.setADefaultPhotometerSensor(mSensorManager);
                 mAcuisitionDisplayArea.getTextNameSensor().setText("Luminosity (lux)");
-                ((TextView)findViewById(R.id.activity_main_text_value2)).setVisibility(View.INVISIBLE);
-                ((TextView)findViewById(R.id.activity_main_text_value3)).setVisibility(View.INVISIBLE);
+                ((TextView) findViewById(R.id.activity_main_text_value2)).setVisibility(View.INVISIBLE);
+                ((TextView) findViewById(R.id.activity_main_text_value3)).setVisibility(View.INVISIBLE);
                 break;
             case "inclinometer":
                 mAcuisitionDisplayArea = new TextArea();
-                mAcuisitionDisplayArea.setTextNameSensor((TextView)findViewById(R.id.activity_main_text_sensortype));
-                mAcuisitionDisplayArea.setTextValue1((TextView)findViewById(R.id.activity_main_text_value1));
-                mAcuisitionDisplayArea.setTextValue2((TextView)findViewById(R.id.activity_main_text_value2));
-                mAcuisitionDisplayArea.setTextValue3((TextView)findViewById(R.id.activity_main_text_value3));
-                mSAccelerometer = (SAccelerometer) mSensorFactory.creatSensor(mPackageManager,SensorType.ACCELEROMETER_SENSOR,mAcuisitionDisplayArea, mSensorManager);
-                mSAccelerometer = (SAccelerometer) mSensorFactory.creatSensor(mPackageManager,SensorType.ACCELEROMETER_SENSOR,mAcuisitionDisplayArea, mSensorManager);
+                mAcuisitionDisplayArea.setTextNameSensor((TextView) findViewById(R.id.activity_main_text_sensortype));
+                mAcuisitionDisplayArea.setTextValue1((TextView) findViewById(R.id.activity_main_text_value1));
+                mAcuisitionDisplayArea.setTextValue2((TextView) findViewById(R.id.activity_main_text_value2));
+                mAcuisitionDisplayArea.setTextValue3((TextView) findViewById(R.id.activity_main_text_value3));
+                mSAccelerometer = (SAccelerometer) mSensorFactory.creatSensor(mPackageManager, SensorType.ACCELEROMETER_SENSOR, mAcuisitionDisplayArea, mSensorManager);
+                mSAccelerometer = (SAccelerometer) mSensorFactory.creatSensor(mPackageManager, SensorType.ACCELEROMETER_SENSOR, mAcuisitionDisplayArea, mSensorManager);
                 //mSAccelerometer.setADefaultAccelerometerSensor(mSensorManager);
-                mAcuisitionDisplayArea.getTextNameSensor().setText("Acceleration (m/s²)");
+                mAcuisitionDisplayArea.getTextNameSensor().setText("");
+            case "gps":
+                mAcuisitionDisplayArea = new TextArea();
+                mAcuisitionDisplayArea.setTextNameSensor((TextView) findViewById(R.id.activity_main_text_sensortype));
+                mAcuisitionDisplayArea.setTextValue1((TextView) findViewById(R.id.activity_main_text_value1));
+                mAcuisitionDisplayArea.setTextValue2((TextView) findViewById(R.id.activity_main_text_value2));
+                mAcuisitionDisplayArea.setTextValue3((TextView) findViewById(R.id.activity_main_text_value3));
+                mSGps = new SGps(mLocationManager, mAcuisitionDisplayArea);
+                mAcuisitionDisplayArea.getTextNameSensor().setText("GPS");
 
         }
         /*mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -142,12 +152,12 @@ public class MainActivity extends AppCompatActivity /*implements LocationListene
         mAcuisitionDisplayArea.setTextValue2((TextView)findViewById(R.id.activity_main_text_longitude));
         mAcuisitionDisplayArea.setTextValue3((TextView)findViewById(R.id.activity_main_text_altitude));*/
 
-        /*mMainLayoutDesign.getButton().setOnClickListener(new View.OnClickListener() {
+        mMainLayoutDesign.getButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
-        });*/
+        });
     }
 
     /*@Override
@@ -167,46 +177,71 @@ public class MainActivity extends AppCompatActivity /*implements LocationListene
         }
     }*/
 
+
+   /* public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        // System.out.println("ffff"+grantResults[0]);
+        //System.out.println("RQ"+requestCode);
+        switch (requestCode) {
+            case 0:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+                    mLocationManager.requestLocationUpdates("network", 5000, 0,this);
+                    System.out.println("latitude  "+mLocationManager.getLastKnownLocation("gps").getAltitude());
+                    mAcuisitionDisplayArea.getTextValue1().setText(""+(double)Math.round(mLocationManager.getLastKnownLocation("gps").getLatitude()* 100000000) / 100000000+"°");
+                    mAcuisitionDisplayArea.getTextValue2().setText(""+(double)Math.round(mLocationManager.getLastKnownLocation("gps").getLongitude()* 100000000) / 100000000+"°");
+                    mAcuisitionDisplayArea.getTextValue3().setText(""+(double)Math.round(mLocationManager.getLastKnownLocation("gps").getAltitude()* 100) / 100+" (m)");
+                }
+        }
+    }*/
+
     protected void onResume() {
         super.onResume();
 
-        if(mSAccelerometer!=null) {
+        if (mSAccelerometer != null) {
 
             if (mSAccelerometer.getAccelerometerSensor().isPresent()) {
                 mSensorManager.registerListener(mSAccelerometer, mSAccelerometer.getAccelerometerSensor().get(), SensorManager.SENSOR_DELAY_UI);
             }
         }
 
-        if(mSProximity!=null){
+        if (mSProximity != null) {
             if (mSProximity.getProximitySensor().isPresent()) {
                 mSensorManager.registerListener(mSProximity, mSProximity.getProximitySensor().get(), SensorManager.SENSOR_DELAY_UI);
             }
         }
 
-        if(mSPhotometer!=null){
+        if (mSPhotometer != null) {
             if (mSPhotometer.getPhotometerSensor().isPresent()) {
                 mSensorManager.registerListener(mSPhotometer, mSPhotometer.getPhotometerSensor().get(), SensorManager.SENSOR_DELAY_UI);
             }
         }
 
-        if(mSMagnetometer!=null){
+        if (mSMagnetometer != null) {
             if (mSMagnetometer.getMagnetometerSensor().isPresent()) {
                 mSensorManager.registerListener(mSMagnetometer, mSMagnetometer.getMagnetometerSensor().get(), SensorManager.SENSOR_DELAY_UI);
             }
         }
 
-        if(mSMagnetometer!=null&&mSAccelerometer!=null){
+        if (mSMagnetometer != null && mSAccelerometer != null) {
             if (mSMagnetometer.getMagnetometerSensor().isPresent() && mSAccelerometer.getAccelerometerSensor().isPresent()) {
                 mSensorManager.registerListener(mSRotation, mSAccelerometer.getAccelerometerSensor().get(), SensorManager.SENSOR_DELAY_UI);
                 mSensorManager.registerListener(mSRotation, mSMagnetometer.getMagnetometerSensor().get(), SensorManager.SENSOR_DELAY_UI);
             }
         }
 
-        if(mSGyroscope!=null&&this.getPackageManager().hasSystemFeature(PackageManager.FEATURE_SENSOR_GYROSCOPE)){
+        if (mSGyroscope != null && this.getPackageManager().hasSystemFeature(PackageManager.FEATURE_SENSOR_GYROSCOPE)) {
             if (mSGyroscope.getGyroscopeSensor().isPresent()) {
-                    mSensorManager.registerListener(mSGyroscope, mSGyroscope.getGyroscopeSensor().get(), SensorManager.SENSOR_DELAY_UI);
+                mSensorManager.registerListener(mSGyroscope, mSGyroscope.getGyroscopeSensor().get(), SensorManager.SENSOR_DELAY_UI);
 
             }
+        }
+
+        if (mSGps != null) {
+            Location location=mLocationManager.getLastKnownLocation("network");
+            mAcuisitionDisplayArea.getTextValue1().setText("" + (double) Math.round(location.getLatitude() * 100000000) / 100000000 + "°");
+            mAcuisitionDisplayArea.getTextValue2().setText(""+(double)Math.round(location.getLongitude()* 100000000) / 100000000+"°");
+            mAcuisitionDisplayArea.getTextValue3().setText(""+(double)Math.round(location.getAltitude()* 100) / 100+" (m)");
         }
     }
 
@@ -230,6 +265,10 @@ public class MainActivity extends AppCompatActivity /*implements LocationListene
 
         if(mSGyroscope!=null){
             mSensorManager.unregisterListener(mSGyroscope,mSGyroscope.getGyroscopeSensor().get());
+        }
+
+        if(mSGps!=null){
+
         }
         finish();
     }
@@ -256,7 +295,4 @@ public class MainActivity extends AppCompatActivity /*implements LocationListene
 
     }*/
 
-
 }
-
-
