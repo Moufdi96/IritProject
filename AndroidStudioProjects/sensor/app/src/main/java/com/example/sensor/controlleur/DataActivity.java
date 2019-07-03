@@ -33,7 +33,7 @@ import com.example.sensor.model.SensorFactory;
 import com.example.sensor.model.SensorType;
 import com.example.sensor.model.TextArea;
 
-public class MainActivity extends AppCompatActivity {
+public class DataActivity extends AppCompatActivity {
     private MainLayoutDesign mMainLayoutDesign;
     private SensorFactory mSensorFactory;
     private SensorManager mSensorManager;
@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_data);
 
         mMainLayoutDesign = MainLayoutDesign.getInstance();
         mSensorFactory = new SensorFactory();
@@ -123,10 +123,10 @@ public class MainActivity extends AppCompatActivity {
                 mAcuisitionDisplayArea.setTextValue1((TextView) findViewById(R.id.activity_main_text_value1));
                 mAcuisitionDisplayArea.setTextValue2((TextView) findViewById(R.id.activity_main_text_value2));
                 mAcuisitionDisplayArea.setTextValue3((TextView) findViewById(R.id.activity_main_text_value3));
-                mSAccelerometer = (SAccelerometer) mSensorFactory.creatSensor(mPackageManager, SensorType.ACCELEROMETER_SENSOR, mAcuisitionDisplayArea, mSensorManager);
-                mSAccelerometer = (SAccelerometer) mSensorFactory.creatSensor(mPackageManager, SensorType.ACCELEROMETER_SENSOR, mAcuisitionDisplayArea, mSensorManager);
+                mSRotation=SRotation.getInstance(mPackageManager,mAcuisitionDisplayArea,mSensorManager);
                 //mSAccelerometer.setADefaultAccelerometerSensor(mSensorManager);
-                mAcuisitionDisplayArea.getTextNameSensor().setText("");
+                mAcuisitionDisplayArea.getTextNameSensor().setText("Inclinometer");
+                break;
             case "gps":
                 mAcuisitionDisplayArea = new TextArea();
                 mAcuisitionDisplayArea.setTextNameSensor((TextView) findViewById(R.id.activity_main_text_sensortype));
@@ -135,22 +135,9 @@ public class MainActivity extends AppCompatActivity {
                 mAcuisitionDisplayArea.setTextValue3((TextView) findViewById(R.id.activity_main_text_value3));
                 mSGps = new SGps(mLocationManager, mAcuisitionDisplayArea);
                 mAcuisitionDisplayArea.getTextNameSensor().setText("GPS");
+                break;
 
         }
-        /*mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-        LocationProvider locationProvider = mLocationManager.getProvider(mLocationManager.NETWORK_PROVIDER);
-        System.out.println("Provider name   " + locationProvider.getName() + "required power   " + locationProvider.getPowerRequirement() + "\n");
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ) {
-            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},1);
-            return;
-        }*/
-        //mAcuisitionDisplayArea=new TextArea();
-
-        /*mAcuisitionDisplayArea.setTextNameSensor((TextView)findViewById(R.id.activity_main_text_gps));
-        mAcuisitionDisplayArea.setTextValue1((TextView)findViewById(R.id.activity_main_text_latitude));
-        mAcuisitionDisplayArea.setTextValue2((TextView)findViewById(R.id.activity_main_text_longitude));
-        mAcuisitionDisplayArea.setTextValue3((TextView)findViewById(R.id.activity_main_text_altitude));*/
 
         mMainLayoutDesign.getButton().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,41 +146,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-    /*@Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        System.out.println("ffff"+grantResults[0]);
-        System.out.println("RQ"+requestCode);
-        switch (requestCode) {
-            case 1:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    mLocationManager.requestLocationUpdates("network", 5000, 0, this);
-                    System.out.println("latitude  "+mLocationManager.getLastKnownLocation("gps").getAltitude());
-                    mAcuisitionDisplayArea.getTextValue1().setText(""+(double)Math.round(mLocationManager.getLastKnownLocation("gps").getLatitude()* 100000000) / 100000000+"°");
-                    mAcuisitionDisplayArea.getTextValue2().setText(""+(double)Math.round(mLocationManager.getLastKnownLocation("gps").getLongitude()* 100000000) / 100000000+"°");
-                    mAcuisitionDisplayArea.getTextValue3().setText(""+(double)Math.round(mLocationManager.getLastKnownLocation("gps").getAltitude()* 100) / 100+" (m)");
-                }
-        }
-    }*/
-
-
-   /* public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        // System.out.println("ffff"+grantResults[0]);
-        //System.out.println("RQ"+requestCode);
-        switch (requestCode) {
-            case 0:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-                    mLocationManager.requestLocationUpdates("network", 5000, 0,this);
-                    System.out.println("latitude  "+mLocationManager.getLastKnownLocation("gps").getAltitude());
-                    mAcuisitionDisplayArea.getTextValue1().setText(""+(double)Math.round(mLocationManager.getLastKnownLocation("gps").getLatitude()* 100000000) / 100000000+"°");
-                    mAcuisitionDisplayArea.getTextValue2().setText(""+(double)Math.round(mLocationManager.getLastKnownLocation("gps").getLongitude()* 100000000) / 100000000+"°");
-                    mAcuisitionDisplayArea.getTextValue3().setText(""+(double)Math.round(mLocationManager.getLastKnownLocation("gps").getAltitude()* 100) / 100+" (m)");
-                }
-        }
-    }*/
 
     protected void onResume() {
         super.onResume();
@@ -223,10 +175,10 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        if (mSMagnetometer != null && mSAccelerometer != null) {
-            if (mSMagnetometer.getMagnetometerSensor().isPresent() && mSAccelerometer.getAccelerometerSensor().isPresent()) {
-                mSensorManager.registerListener(mSRotation, mSAccelerometer.getAccelerometerSensor().get(), SensorManager.SENSOR_DELAY_UI);
-                mSensorManager.registerListener(mSRotation, mSMagnetometer.getMagnetometerSensor().get(), SensorManager.SENSOR_DELAY_UI);
+        if (mSRotation!=null) {
+            if (mSRotation.getMagnetometer()!=null && mSRotation.getAccelerometer()!=null) {
+                mSensorManager.registerListener(mSRotation,mSRotation.getAccelerometer(), SensorManager.SENSOR_DELAY_UI);
+                mSensorManager.registerListener(mSRotation,mSRotation.getMagnetometer(), SensorManager.SENSOR_DELAY_UI);
             }
         }
 

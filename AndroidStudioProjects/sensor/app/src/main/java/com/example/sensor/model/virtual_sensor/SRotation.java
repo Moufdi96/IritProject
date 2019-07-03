@@ -1,5 +1,6 @@
 package com.example.sensor.model.virtual_sensor;
 
+import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -17,6 +18,8 @@ public class SRotation implements SensorEventListener {
     private static final SensorType mSensorType = SensorType.ROTATION_SENSOR;
     private static SensorCategory sSensorCategory = SensorCategory.VIRTUAL;
     private static Optional<SRotation> instance = Optional.empty();
+    private Sensor mMagnetometer;
+    private Sensor mAccelerometer;
     private float[] mMeasureAccelerometer;
     private float[] mMeasureMagnetomter;
     private float [] orientationValues = new float[3];
@@ -30,11 +33,27 @@ public class SRotation implements SensorEventListener {
     }
 
 
-    public static Optional<SRotation> getInstance(TextArea textArea) {
+    public Sensor getMagnetometer() {
+        return mMagnetometer;
+    }
+
+    public Sensor getAccelerometer() {
+        return mAccelerometer;
+    }
+
+    public static SRotation getInstance(PackageManager packageManager, TextArea textArea, SensorManager sensorManager) {
         if (!instance.isPresent()) {
-            instance = Optional.ofNullable(new SRotation(textArea));
+            if (packageManager.hasSystemFeature(PackageManager.FEATURE_SENSOR_COMPASS) && packageManager.hasSystemFeature(PackageManager.FEATURE_SENSOR_ACCELEROMETER)){ //check whether the device is equipped with an Accelerometer and a Magnetometer
+                instance = Optional.ofNullable(new SRotation(textArea));
+            }
         }
-        return instance;
+
+        if(instance.isPresent()){
+            instance.get().mMagnetometer = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+            instance.get().mAccelerometer=sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+
+        }
+        return instance.get();
     }
     //
     @Override

@@ -71,9 +71,9 @@ public class HomeActivity extends AppCompatActivity {
                 mSensorExistence=mPackageManager.hasSystemFeature(PackageManager.FEATURE_SENSOR_ACCELEROMETER);
                 if (mSensorExistence){
                     String sensorToEnable = (String) v.getTag();
-                    Intent mainActivity = new Intent(HomeActivity.this, MainActivity.class);
-                    mainActivity.putExtra("sensor to enable", sensorToEnable);
-                    startActivity(mainActivity);
+                    Intent dataActivity = new Intent(HomeActivity.this, DataActivity.class);
+                    dataActivity.putExtra("sensor to enable", sensorToEnable);
+                    startActivity(dataActivity);
                 }else {
                     Toast.makeText(HomeActivity.this,"Accelerometer not detected for this device",Toast.LENGTH_SHORT).show();
                 }
@@ -87,9 +87,9 @@ public class HomeActivity extends AppCompatActivity {
                 mSensorExistence=mPackageManager.hasSystemFeature(PackageManager.FEATURE_SENSOR_COMPASS);
                 if (mSensorExistence){
                     String sensorToEnable = (String) v.getTag();
-                    Intent mainActivity = new Intent(HomeActivity.this, MainActivity.class);
-                    mainActivity.putExtra("sensor to enable", sensorToEnable);
-                    startActivity(mainActivity);
+                    Intent dataActivity = new Intent(HomeActivity.this, DataActivity.class);
+                    dataActivity.putExtra("sensor to enable", sensorToEnable);
+                    startActivity(dataActivity);
                 }else {
                     Toast.makeText(HomeActivity.this,"Magnetometer not detected for this device",Toast.LENGTH_SHORT).show();
                 }
@@ -103,9 +103,9 @@ public class HomeActivity extends AppCompatActivity {
                 mSensorExistence=mPackageManager.hasSystemFeature(PackageManager.FEATURE_SENSOR_GYROSCOPE);
                 if (mSensorExistence){
                     String sensorToEnable = (String) v.getTag();
-                    Intent mainActivity = new Intent(HomeActivity.this, MainActivity.class);
-                    mainActivity.putExtra("sensor to enable", sensorToEnable);
-                    startActivity(mainActivity);
+                    Intent DataActivity = new Intent(HomeActivity.this, DataActivity.class);
+                    DataActivity.putExtra("sensor to enable", sensorToEnable);
+                    startActivity(DataActivity);
                 }else {
                     Toast.makeText(HomeActivity.this,"Gyroscope not detected for this device",Toast.LENGTH_SHORT).show();
                 }
@@ -119,9 +119,9 @@ public class HomeActivity extends AppCompatActivity {
                 mSensorExistence = mPackageManager.hasSystemFeature(PackageManager.FEATURE_SENSOR_COMPASS) && mPackageManager.hasSystemFeature(PackageManager.FEATURE_SENSOR_ACCELEROMETER);
                 if (mSensorExistence) {
                     String sensorToEnable = (String) v.getTag();
-                    Intent mainActivity = new Intent(HomeActivity.this, MainActivity.class);
-                    mainActivity.putExtra("sensor to enable", sensorToEnable);
-                    startActivity(mainActivity);
+                    Intent DataActivity = new Intent(HomeActivity.this, DataActivity.class);
+                    DataActivity.putExtra("sensor to enable", sensorToEnable);
+                    startActivity(DataActivity);
                 } else {
                     Toast.makeText(HomeActivity.this, "Magnetometer or Accelerometer not detected for this device", Toast.LENGTH_SHORT).show();
                 }
@@ -135,9 +135,9 @@ public class HomeActivity extends AppCompatActivity {
                 mSensorExistence=mPackageManager.hasSystemFeature(PackageManager.FEATURE_SENSOR_PROXIMITY);
                 if (mSensorExistence){
                     String sensorToEnable = (String) v.getTag();
-                    Intent mainActivity = new Intent(HomeActivity.this, MainActivity.class);
-                    mainActivity.putExtra("sensor to enable", sensorToEnable);
-                    startActivity(mainActivity);
+                    Intent DataActivity = new Intent(HomeActivity.this, DataActivity.class);
+                    DataActivity.putExtra("sensor to enable", sensorToEnable);
+                    startActivity(DataActivity);
                 }else {
                     Toast.makeText(HomeActivity.this,"Proximity sensor not detected for this device",Toast.LENGTH_SHORT).show();
                 }
@@ -151,9 +151,9 @@ public class HomeActivity extends AppCompatActivity {
                 mSensorExistence=mPackageManager.hasSystemFeature(PackageManager.FEATURE_SENSOR_LIGHT);
                 if (mSensorExistence){
                     String sensorToEnable = (String) v.getTag();
-                    Intent mainActivity = new Intent(HomeActivity.this, MainActivity.class);
-                    mainActivity.putExtra("sensor to enable", sensorToEnable);
-                    startActivity(mainActivity);
+                    Intent DataActivity = new Intent(HomeActivity.this, DataActivity.class);
+                    DataActivity.putExtra("sensor to enable", sensorToEnable);
+                    startActivity(DataActivity);
                 }else {
                     Toast.makeText(HomeActivity.this,"Photometer or Accelerometer not detected for this device",Toast.LENGTH_SHORT).show();
                 }
@@ -166,19 +166,23 @@ public class HomeActivity extends AppCompatActivity {
                 if(ActivityCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)!=PackageManager.PERMISSION_GRANTED){
                     ActivityCompat.requestPermissions(HomeActivity.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},0);
                 }
-                boolean mSensorExistence;
-                mSensorExistence=mPackageManager.hasSystemFeature(PackageManager.FEATURE_LOCATION);
-                if (mSensorExistence && ActivityCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)==PackageManager.PERMISSION_GRANTED){
+                LocationManager locationManager=(LocationManager) getSystemService(Context.LOCATION_SERVICE);
+                boolean isSensorEnabled=locationManager.isProviderEnabled("gps");
+                boolean mSensorExistence=mPackageManager.hasSystemFeature(PackageManager.FEATURE_LOCATION) ;
+                if (mSensorExistence && isSensorEnabled && ActivityCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)==PackageManager.PERMISSION_GRANTED){
                     String sensorToEnable = (String) v.getTag();
-                    Intent mainActivity = new Intent(HomeActivity.this, MainActivity.class);
-                    mainActivity.putExtra("sensor to enable", sensorToEnable);
-                    startActivity(mainActivity);
+                    Intent DataActivity = new Intent(HomeActivity.this, DataActivity.class);
+                    DataActivity.putExtra("sensor to enable", sensorToEnable);
+                    startActivity(DataActivity);
                 }else {
+                    if(!isSensorEnabled){
+                        Toast.makeText(HomeActivity.this,"Please enable GPS",Toast.LENGTH_LONG).show();
+                    }
                     if(ActivityCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)!=PackageManager.PERMISSION_GRANTED){
-                        Toast.makeText(HomeActivity.this,"Permission denied\n can't access GPS",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(HomeActivity.this,"Permission denied\n can't access GPS",Toast.LENGTH_LONG).show();
                     }
                     if (!mSensorExistence){
-                        Toast.makeText(HomeActivity.this,"GPS not detected for this device",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(HomeActivity.this,"GPS not detected for this device",Toast.LENGTH_LONG).show();
                     }
                 }
             }
