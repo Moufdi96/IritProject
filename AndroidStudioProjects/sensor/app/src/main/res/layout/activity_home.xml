@@ -18,7 +18,8 @@
         android:text="SensorPro"
         android:textColor="#FFF"
         android:textSize="35dp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -214,7 +215,8 @@
                         android:layout_height="80dp"
                         android:background="#FFF"
                         android:elevation="2.75dp"
-                        android:src="@drawable/gps" />
+                        android:src="@drawable/gps"
+                        android:focusableInTouchMode="true"/>
 
                     <TextView
                         android:layout_width="80dp"

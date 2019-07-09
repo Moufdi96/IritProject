@@ -18,14 +18,10 @@ public class SGyroscope extends GSensor {
     private static SensorCategory sSensorCategory = SensorCategory.MATERIAL;
     private static Optional<SGyroscope> instance = Optional.empty();
 
-    private SGyroscope(TextArea textArea) {
-        super(textArea);
-    }
-
-    public static SGyroscope getInstance(PackageManager packageManager,TextArea textArea,SensorManager sensorManager){
+    public static SGyroscope getInstance(PackageManager packageManager,SensorManager sensorManager){
         if (!instance.isPresent()) {
             if (packageManager.hasSystemFeature(PackageManager.FEATURE_SENSOR_GYROSCOPE)){          //check whether the device is equipped with an Accelerometer
-                instance=Optional.ofNullable(new SGyroscope(textArea));
+                instance=Optional.ofNullable(new SGyroscope());
             }
         }
 

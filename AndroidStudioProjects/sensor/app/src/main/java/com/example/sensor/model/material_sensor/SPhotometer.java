@@ -17,14 +17,10 @@ public class SPhotometer extends GSensor {
     private static SensorCategory sSensorCategory = SensorCategory.MATERIAL;
     private static Optional<SPhotometer > instance = Optional.empty();
 
-    private SPhotometer(TextArea textArea) {
-        super(textArea);
-    }
-
-    public static SPhotometer getInstance(PackageManager packageManager,TextArea textArea,SensorManager sensorManager){
+    public static SPhotometer getInstance(PackageManager packageManager,SensorManager sensorManager){
         if (!instance.isPresent()) {
             if (packageManager.hasSystemFeature(PackageManager.FEATURE_SENSOR_LIGHT)){          //check whether the device is equipped with an Accelerometer
-                instance=Optional.ofNullable(new SPhotometer(textArea));
+                instance=Optional.ofNullable(new SPhotometer());
             }
         }
 

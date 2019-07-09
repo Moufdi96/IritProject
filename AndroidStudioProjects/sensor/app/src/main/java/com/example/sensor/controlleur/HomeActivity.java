@@ -1,7 +1,6 @@
 package com.example.sensor.controlleur;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -14,7 +13,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
-
 import com.example.sensor.R;
 
 public class HomeActivity extends AppCompatActivity {
@@ -36,7 +34,6 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         mPackageManager=this.getPackageManager();
-
 
         mBAccelerometer = (ImageButton) findViewById(R.id.activity_home_button_accelerometer);
         mBAccelerometer.setTag("accelerometer");

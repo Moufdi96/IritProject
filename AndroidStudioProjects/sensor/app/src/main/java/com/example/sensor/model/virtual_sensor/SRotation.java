@@ -5,6 +5,8 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+
+import com.example.sensor.GSensorListener;
 import com.example.sensor.model.SensorCategory;
 import com.example.sensor.model.SensorType;
 import com.example.sensor.model.TextArea;
@@ -24,13 +26,14 @@ public class SRotation implements SensorEventListener {
     private float[] mMeasureMagnetomter;
     private float [] orientationValues = new float[3];
     private float [] rotationMatrix = new float[9];
-    public TextArea mTextArea;
+    private Optional<GSensorListener> listner=Optional.empty();
+
 
     private SRotation(TextArea textArea) {
-        mTextArea=textArea;
         mMeasureAccelerometer=new float[3];
         mMeasureMagnetomter=new float[3];
     }
+
 
 
     public Sensor getMagnetometer() {
@@ -39,6 +42,10 @@ public class SRotation implements SensorEventListener {
 
     public Sensor getAccelerometer() {
         return mAccelerometer;
+    }
+
+    public void setListener(GSensorListener listner){
+        this.listner=Optional.ofNullable(listner);
     }
 
     public static SRotation getInstance(PackageManager packageManager, TextArea textArea, SensorManager sensorManager) {
@@ -72,6 +79,9 @@ public class SRotation implements SensorEventListener {
             break;
         }
         getOrientation();
+        if(listner.isPresent()){
+            listner.get().perceived(orientationValues[0],orientationValues[1],orientationValues[2]);
+        }
     }
 
     @Override
@@ -81,8 +91,8 @@ public class SRotation implements SensorEventListener {
     public void getOrientation(){
         SensorManager.getRotationMatrix(rotationMatrix,null,mMeasureAccelerometer,mMeasureMagnetomter);
         SensorManager.getOrientation(rotationMatrix,orientationValues);
-        mTextArea.getTextValue1().setText("X=" + (double)Math.round((orientationValues[0]*180/3.14)*100)/ 100+"°"); //Yaw
-        mTextArea.getTextValue2().setText("Y=" + (double)Math.round((orientationValues[1]*180/3.14)*100)/ 100+"°"); //Pitch
-        mTextArea.getTextValue3().setText("Z=" + (double)Math.round((orientationValues[2]*180/3.14)*100)/ 100+"°"); //Roll
+        //mTextArea.getTextValue1().setText("X=" + (double)Math.round((orientationValues[0]*180/3.14)*100)/ 100+"°"); //Yaw
+        //mTextArea.getTextValue2().setText("Y=" + (double)Math.round((orientationValues[1]*180/3.14)*100)/ 100+"°"); //Pitch
+        //mTextArea.getTextValue3().setText("Z=" + (double)Math.round((orientationValues[2]*180/3.14)*100)/ 100+"°"); //Roll
     }
 }

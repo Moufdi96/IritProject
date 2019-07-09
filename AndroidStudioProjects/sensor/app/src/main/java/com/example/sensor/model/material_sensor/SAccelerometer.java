@@ -17,14 +17,10 @@ public class SAccelerometer extends GSensor {
     private static SensorCategory sSensorCategory = SensorCategory.MATERIAL;
     private static Optional<SAccelerometer > instance = Optional.empty();
 
-    private SAccelerometer(TextArea textArea) {
-        super(textArea);
-    }
-
-    public static SAccelerometer getInstance(PackageManager packageManager, TextArea textArea, SensorManager sensorManager ){
+    public static SAccelerometer getInstance(PackageManager packageManager,SensorManager sensorManager ){
         if (!instance.isPresent()) {
             if (packageManager.hasSystemFeature(PackageManager.FEATURE_SENSOR_ACCELEROMETER)){          //check whether the device is equipped with an Accelerometer
-                instance=Optional.ofNullable(new SAccelerometer(textArea));
+                instance=Optional.ofNullable(new SAccelerometer());
             }
         }
 

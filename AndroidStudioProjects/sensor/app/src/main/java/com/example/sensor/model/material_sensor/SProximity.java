@@ -18,14 +18,10 @@ public class SProximity extends GSensor {
     private Optional<Sensor> mProximitySensor=Optional.empty();
     private static Optional<SProximity> instance =Optional.empty();
 
-    public SProximity(TextArea textArea) {
-        super(textArea);
-    }
-
-    public static SProximity getInstance(PackageManager packageManager,TextArea textArea,SensorManager sensorManager){
+    public static SProximity getInstance(PackageManager packageManager,SensorManager sensorManager){
         if (!instance.isPresent()) {
             if (packageManager.hasSystemFeature(PackageManager.FEATURE_SENSOR_PROXIMITY)){          //check whether the device is equipped with a Proximity sensor
-                instance=Optional.ofNullable(new SProximity(textArea));
+                instance=Optional.ofNullable(new SProximity());
             }
         }
 

@@ -17,17 +17,14 @@ public class SMagnetometer extends GSensor {
     private static SensorCategory sSensorCategory = SensorCategory.MATERIAL;
     private static Optional<SMagnetometer> instance = Optional.empty();
 
-    private SMagnetometer(TextArea textArea){
-    super(textArea);}
-
     public Optional<Sensor> getMagnetometerSensor() {
         return mMagnetometerSensor;
     }
 
-    public static SMagnetometer getInstance(PackageManager packageManager,TextArea textArea,SensorManager sensorManager) {
+    public static SMagnetometer getInstance(PackageManager packageManager,SensorManager sensorManager) {
         if (!instance.isPresent()) {
             if (packageManager.hasSystemFeature(PackageManager.FEATURE_SENSOR_COMPASS)){          //check whether the device is equipped with an Accelerometer
-                instance=Optional.ofNullable(new SMagnetometer(textArea));
+                instance=Optional.ofNullable(new SMagnetometer());
             }
         }
 
