@@ -6,7 +6,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
-import com.example.sensor.GSensorListener;
+import com.example.sensor.model.GSensorListener;
 import com.example.sensor.model.SensorCategory;
 import com.example.sensor.model.SensorType;
 import com.example.sensor.model.TextArea;
@@ -36,11 +36,11 @@ public class SRotation implements SensorEventListener {
 
 
 
-    public Sensor getMagnetometer() {
+    public Sensor getMagnetometerSensor() {
         return mMagnetometer;
     }
 
-    public Sensor getAccelerometer() {
+    public Sensor getAccelerometerSensor() {
         return mAccelerometer;
     }
 
@@ -80,7 +80,7 @@ public class SRotation implements SensorEventListener {
         }
         getOrientation();
         if(listner.isPresent()){
-            listner.get().perceived(orientationValues[0],orientationValues[1],orientationValues[2]);
+            listner.get().perceived(sensor,orientationValues[0],orientationValues[1],orientationValues[2]);
         }
     }
 

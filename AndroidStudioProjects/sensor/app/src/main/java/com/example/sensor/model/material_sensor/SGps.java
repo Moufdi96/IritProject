@@ -37,6 +37,7 @@ public class SGps implements LocationListener {
             mAcuisitionDisplayArea.getTextValue2().setText(""+(double)Math.round(location.getLongitude()* 100000000) / 100000000+"°");
             mAcuisitionDisplayArea.getTextValue3().setText(""+(double)Math.round(location.getAltitude()* 100) / 100+" (m)");
 
+
         }
 
     }

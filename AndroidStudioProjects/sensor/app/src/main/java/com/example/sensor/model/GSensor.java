@@ -4,7 +4,7 @@ package com.example.sensor.model;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
-import com.example.sensor.GSensorListener;
+
 import java.util.Optional;
 
 /**
@@ -34,8 +34,9 @@ public class GSensor implements SensorEventListener {
     @Override
     public void onSensorChanged(SensorEvent event) {
         sensor=event.sensor;
+        System.out.println("name"+sensor.getName()+"     "+sensor.getType());
         if(listener.isPresent()){
-            listener.get().perceived(event.values[0],event.values[1],event.values[2]);
+            listener.get().perceived(sensor,event.values[0],event.values[1],event.values[2]);
         }
     }
 

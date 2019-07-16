@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.hardware.Sensor;
 import android.location.Location;
 import android.location.LocationManager;
 import android.support.v4.app.ActivityCompat;
@@ -14,8 +15,9 @@ import android.hardware.SensorManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
-import com.example.sensor.GSensorListener;
+import com.example.sensor.model.GSensorListener;
 import com.example.sensor.R;
 import com.example.sensor.model.MainLayoutDesign;
 import com.example.sensor.model.material_sensor.SAccelerometer;
@@ -43,6 +45,8 @@ public class DataActivity extends AppCompatActivity {
     private SGyroscope mSGyroscope;
     private SRotation mSRotation;
     private SGps mSGps;
+    private ImageButton mSensorInfoButton;
+    private String[] mEnabedSensorInfo; //this array contain the technical information of the current enabled sensor
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,10 +58,14 @@ public class DataActivity extends AppCompatActivity {
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mPackageManager = this.getPackageManager();
         mMainLayoutDesign.setTextTitle((TextView) findViewById(R.id.activity_main_text_titre));
-        mMainLayoutDesign.setButton((Button) findViewById(R.id.activity_main_QuitApp));
+        mMainLayoutDesign.setButton((ImageButton)findViewById(R.id.activity_main_QuitApp));
         mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        mSensorInfoButton=(ImageButton)findViewById(R.id.activity_main_Button_info);
+        mEnabedSensorInfo=new String[8];
+       // System.out.println("hhh"+mLocationManager.getProvider("gps").getPowerRequirement()+""+mLocationManager.getProvider("gps").requiresNetwork()+""+mLocationManager.getProvider("gps").requiresSatellite());
 
-        Intent intent = getIntent();
+
+        final Intent intent = getIntent();
         String sensorToEnable = intent.getStringExtra("sensor to enable");
         switch (sensorToEnable) {
             case "accelerometer":
@@ -67,7 +75,7 @@ public class DataActivity extends AppCompatActivity {
                 mAcuisitionDisplayArea.setTextValue2((TextView) findViewById(R.id.activity_main_text_value2));
                 mAcuisitionDisplayArea.setTextValue3((TextView) findViewById(R.id.activity_main_text_value3));
                 mSAccelerometer = (SAccelerometer) mSensorFactory.creatSensor(mPackageManager, SensorType.ACCELEROMETER_SENSOR,mSensorManager);
-                mAcuisitionDisplayArea.getTextNameSensor().setText("Acceleration (m/s²)");
+                mAcuisitionDisplayArea.getTextNameSensor().setText("Acceleration (   m/s²)");
                 break;
             case "magnetometer":
                 mAcuisitionDisplayArea = new TextArea();
@@ -131,20 +139,39 @@ public class DataActivity extends AppCompatActivity {
                 finish();
             }
         });
+        mSensorInfoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent sensorInfoActivity=new Intent(DataActivity.this, SensorInfoActivity.class);
+                sensorInfoActivity.putExtra("enabled sensor info",mEnabedSensorInfo);
+                mMainLayoutDesign.getButton().setVisibility(View.INVISIBLE);
+                startActivity(sensorInfoActivity);
+                mMainLayoutDesign.getButton().setVisibility(View.INVISIBLE);
+            }
+        });
     }
 
     protected void onResume() {
         super.onResume();
+        mMainLayoutDesign.getButton().setVisibility(View.VISIBLE);
         Log.d("dataActivity","onResume invoked");
         if (mSAccelerometer != null) {
             if (mSAccelerometer.getAccelerometerSensor().isPresent()) {
-                mSensorManager.registerListener(mSAccelerometer, mSAccelerometer.getAccelerometerSensor().get(), SensorManager.SENSOR_DELAY_UI);
+                mSensorManager.registerListener(mSAccelerometer, mSAccelerometer.getAccelerometerSensor().get(), SensorManager.SENSOR_DELAY_NORMAL);
                 mSAccelerometer.setListener(new GSensorListener() {
                     @Override
-                    public void perceived(double val1,double val2,double val3) {
-                        mAcuisitionDisplayArea.getTextValue1().setText(val1+" m/s²");
-                        mAcuisitionDisplayArea.getTextValue2().setText(val2+" m/s²");
-                        mAcuisitionDisplayArea.getTextValue3().setText(val3+" m/s²");
+                    public void perceived(Sensor sensor, double val1, double val2, double val3) {
+                        mAcuisitionDisplayArea.getTextValue1().setText(val1+"    m/s²");
+                        mAcuisitionDisplayArea.getTextValue2().setText(val2+"    m/s²");
+                        mAcuisitionDisplayArea.getTextValue3().setText(val3+"    m/s²");
+                        //mEnabedSensorInfo[0]="Accelerometer";
+                        mEnabedSensorInfo[1]=""+sensor.getName();
+                        mEnabedSensorInfo[2]=""+sensor.getVersion();
+                             mEnabedSensorInfo[3]=""+sensor.getPower()+ " mA";
+                        mEnabedSensorInfo[4]=""+sensor.getMaximumRange()+ " mA";
+                         mEnabedSensorInfo[5]=""+sensor.getMinDelay()+ " ms";
+                         mEnabedSensorInfo[6]=""+sensor.getMaxDelay()+ " ms";
+                        mEnabedSensorInfo[7]=""+sensor.getResolution()+"   m/s²";
                     }
                 });
             }
@@ -155,7 +182,7 @@ public class DataActivity extends AppCompatActivity {
                 mSensorManager.registerListener(mSProximity, mSProximity.getProximitySensor().get(), SensorManager.SENSOR_DELAY_UI);
                 mSProximity.setListener(new GSensorListener() {
                     @Override
-                    public void perceived(double val1,double val2,double val3) {
+                    public void perceived(Sensor sensor,double val1,double val2,double val3) {
                         if (val1==0){
                             mAcuisitionDisplayArea.getTextValue1().setText("Object detected");
                             mAcuisitionDisplayArea.getTextValue1().setBackgroundColor(Color.GREEN);
@@ -163,6 +190,14 @@ public class DataActivity extends AppCompatActivity {
                             mAcuisitionDisplayArea.getTextValue1().setText("no object detected");
                             mAcuisitionDisplayArea.getTextValue1().setBackgroundColor(0xffffffff);
                         }
+                        //mEnabedSensorInfo[0]="Accelerometer";
+                        mEnabedSensorInfo[1]=""+sensor.getName();
+                        mEnabedSensorInfo[2]=""+sensor.getVersion();
+                             mEnabedSensorInfo[3]=""+sensor.getPower()+ " mA";
+                        mEnabedSensorInfo[4]=""+sensor.getMaximumRange()+ " mm";
+                         mEnabedSensorInfo[5]=""+sensor.getMinDelay()+ " ms";
+                         mEnabedSensorInfo[6]=""+sensor.getMaxDelay()+ " ms";
+                        mEnabedSensorInfo[7]=""+sensor.getResolution()+"   mm";
                     }
                 });
             }
@@ -173,8 +208,16 @@ public class DataActivity extends AppCompatActivity {
                 mSensorManager.registerListener(mSPhotometer, mSPhotometer.getPhotometerSensor().get(), SensorManager.SENSOR_DELAY_UI);
                 mSPhotometer.setListener(new GSensorListener() {
                     @Override
-                    public void perceived(double val1,double val2,double val3) {
+                    public void perceived(Sensor sensor,double val1,double val2,double val3) {
                         mAcuisitionDisplayArea.getTextValue1().setText(val1+" lux");
+                        //mEnabedSensorInfo[0]="Accelerometer";
+                        mEnabedSensorInfo[1]=""+sensor.getName();
+                        mEnabedSensorInfo[2]=""+sensor.getVersion();
+                             mEnabedSensorInfo[3]=""+sensor.getPower()+ " mA";
+                        mEnabedSensorInfo[4]=""+sensor.getMaximumRange()+ " lux";
+                         mEnabedSensorInfo[5]=""+sensor.getMinDelay()+ " ms";
+                         mEnabedSensorInfo[6]=""+sensor.getMaxDelay()+ " ms";
+                        mEnabedSensorInfo[7]=""+sensor.getResolution()+" lux";
                     }
                 });
             }
@@ -185,22 +228,30 @@ public class DataActivity extends AppCompatActivity {
                 mSensorManager.registerListener(mSMagnetometer, mSMagnetometer.getMagnetometerSensor().get(), SensorManager.SENSOR_DELAY_UI);
                 mSMagnetometer.setListener(new GSensorListener() {
                     @Override
-                    public void perceived(double val1,double val2,double val3) {
+                    public void perceived(Sensor sensor,double val1,double val2,double val3) {
                         mAcuisitionDisplayArea.getTextValue1().setText(val1+" nT");
                         mAcuisitionDisplayArea.getTextValue2().setText(val2+" nT");
                         mAcuisitionDisplayArea.getTextValue3().setText(val3+" nT");
+                        //mEnabedSensorInfo[0]="Accelerometer";
+                        mEnabedSensorInfo[1]=""+sensor.getName();
+                        mEnabedSensorInfo[2]=""+sensor.getVersion();
+                             mEnabedSensorInfo[3]=""+sensor.getPower()+ " mA";
+                        mEnabedSensorInfo[4]=""+sensor.getMaximumRange()+ " nT";
+                         mEnabedSensorInfo[5]=""+sensor.getMinDelay()+ " ms";
+                         mEnabedSensorInfo[6]=""+sensor.getMaxDelay()+ " ms";
+                        mEnabedSensorInfo[7]=""+sensor.getResolution()+" nT";
                     }
                 });
             }
         }
 
         if (mSRotation != null) {
-            if (mSRotation.getMagnetometer() != null && mSRotation.getAccelerometer() != null) {
-                mSensorManager.registerListener(mSRotation, mSRotation.getAccelerometer(), SensorManager.SENSOR_DELAY_UI);
-                mSensorManager.registerListener(mSRotation, mSRotation.getMagnetometer(), SensorManager.SENSOR_DELAY_UI);
+            if (mSRotation.getMagnetometerSensor() != null && mSRotation.getAccelerometerSensor() != null) {
+                mSensorManager.registerListener(mSRotation, mSRotation.getAccelerometerSensor(), SensorManager.SENSOR_DELAY_UI);
+                mSensorManager.registerListener(mSRotation, mSRotation.getMagnetometerSensor(), SensorManager.SENSOR_DELAY_UI);
                 mSRotation.setListener(new GSensorListener() {
                     @Override
-                    public void perceived(double val1,double val2,double val3) {
+                    public void perceived(Sensor sensor,double val1,double val2,double val3) {
                         mAcuisitionDisplayArea.getTextValue1().setText(val1*180/3.14+"°");//Yaw
                         mAcuisitionDisplayArea.getTextValue2().setText(val2*180/3.14+"°");//Pitch
                         mAcuisitionDisplayArea.getTextValue3().setText(val3*180/3.14+"°");//Roll
@@ -209,15 +260,24 @@ public class DataActivity extends AppCompatActivity {
             }
         }
 
-        if (mSGyroscope != null && this.getPackageManager().hasSystemFeature(PackageManager.FEATURE_SENSOR_GYROSCOPE)) {
+        if (mSGyroscope != null) {
             if (mSGyroscope.getGyroscopeSensor().isPresent()) {
                 mSensorManager.registerListener(mSGyroscope, mSGyroscope.getGyroscopeSensor().get(), SensorManager.SENSOR_DELAY_UI);
                 mSGyroscope.setListener(new GSensorListener() {
                     @Override
-                    public void perceived(double val1,double val2,double val3) {
+                    public void perceived(Sensor sensor,double val1,double val2,double val3) {
                         mAcuisitionDisplayArea.getTextValue1().setText(val1+" rad/s");
                         mAcuisitionDisplayArea.getTextValue2().setText(val2+" rad/s");
                         mAcuisitionDisplayArea.getTextValue3().setText(val3+" rad/s");
+                        //mEnabedSensorInfo[0]="Accelerometer";
+                        mEnabedSensorInfo[1]=""+sensor.getName();
+                        mEnabedSensorInfo[2]=""+sensor.getVersion();
+                             mEnabedSensorInfo[3]=""+sensor.getPower()+ " mA";
+                        mEnabedSensorInfo[4]=""+sensor.getMaximumRange()+ " rad/s";
+                         mEnabedSensorInfo[5]=""+sensor.getMinDelay()+ " ms";
+                         mEnabedSensorInfo[6]=""+sensor.getMaxDelay()+ " ms";
+                        mEnabedSensorInfo[7]=""+sensor.getResolution()+" rad/s";
+
                     }
                 });
             }
@@ -243,6 +303,7 @@ public class DataActivity extends AppCompatActivity {
             mAcuisitionDisplayArea.getTextValue1().setText(s1);
             mAcuisitionDisplayArea.getTextValue2().setText(s2);
             mAcuisitionDisplayArea.getTextValue3().setText(s3);
+
         }
     }
 
@@ -263,6 +324,11 @@ public class DataActivity extends AppCompatActivity {
 
         if(mSPhotometer!=null) {
             mSensorManager.unregisterListener(mSPhotometer, mSPhotometer.getPhotometerSensor().get());
+        }
+
+        if(mSRotation!=null){
+            mSensorManager.unregisterListener(mSRotation, mSRotation.getAccelerometerSensor());
+            mSensorManager.unregisterListener(mSRotation, mSRotation.getMagnetometerSensor());
         }
 
         if(mSGyroscope!=null){

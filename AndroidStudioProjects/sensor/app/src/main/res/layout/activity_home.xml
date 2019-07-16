@@ -4,27 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFF"
+    android:background="#FFF"
     android:orientation="vertical"
     tools:context=".controlleur.HomeActivity">
 
-    <TextView
-        android:id="@+id/activity_main_text_titre"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
-        android:gravity="center"
-        android:padding="8dp"
-        android:text="SensorPro"
-        android:textColor="#FFF"
-        android:textSize="35dp"
-        android:textStyle="bold"
-        />
+
+        <TextView
+            android:id="@+id/activity_main_text_titre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="SensorPro"
+            android:textColor="#FFF"
+            android:textSize="35dp"
+            android:textStyle="bold"></TextView>
+
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:verticalScrollbarPosition="left">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -237,10 +237,10 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="80dp"
                 android:layout_marginBottom="35dp"
-                android:background="@color/colorAccent"
+                android:background="#FFF"
                 android:padding="10dp"
                 android:text="Quit"
-                android:textColor="#FFF"
+                android:textColor="@color/colorAccent"
                 android:textSize="20dp"
                 android:textStyle="italic" />
         </LinearLayout>

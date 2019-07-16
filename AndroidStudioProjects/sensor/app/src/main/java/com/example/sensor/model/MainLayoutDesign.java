@@ -1,11 +1,11 @@
 package com.example.sensor.model;
 
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class MainLayoutDesign {
     private TextView mTextTitle;
-    private Button mButton;
+    private ImageView mButton;
     private static MainLayoutDesign instance;
 
     private MainLayoutDesign() {
@@ -26,11 +26,11 @@ public class MainLayoutDesign {
         mTextTitle = textTitle;
     }
 
-    public Button getButton() {
+    public ImageView getButton() {
         return mButton;
     }
 
-    public void setButton(Button button) {
+    public void setButton(ImageView button) {
         mButton = button;
     }
 }

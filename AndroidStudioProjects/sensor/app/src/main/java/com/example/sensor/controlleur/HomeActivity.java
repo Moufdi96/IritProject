@@ -10,6 +10,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -26,8 +27,6 @@ public class HomeActivity extends AppCompatActivity {
     private Button mBQuitApp;
     private PackageManager mPackageManager;
     private boolean mGpsRequest=false;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -160,11 +159,11 @@ public class HomeActivity extends AppCompatActivity {
         mBGps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(ActivityCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)!=PackageManager.PERMISSION_GRANTED){
+                if(ActivityCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)!=PackageManager.PERMISSION_GRANTED ){
                     ActivityCompat.requestPermissions(HomeActivity.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},0);
                 }
                 LocationManager locationManager=(LocationManager) getSystemService(Context.LOCATION_SERVICE);
-                boolean isSensorEnabled=locationManager.isProviderEnabled("gps");
+                boolean isSensorEnabled=locationManager.isProviderEnabled("network");
                 boolean mSensorExistence=mPackageManager.hasSystemFeature(PackageManager.FEATURE_LOCATION) ;
                 if (mSensorExistence && isSensorEnabled && ActivityCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)==PackageManager.PERMISSION_GRANTED){
                     String sensorToEnable = (String) v.getTag();
