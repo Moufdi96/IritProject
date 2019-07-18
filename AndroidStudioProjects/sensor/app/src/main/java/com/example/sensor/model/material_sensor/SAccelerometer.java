@@ -4,8 +4,10 @@ import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 
+import com.example.sensor.controlleur.SettingsActivity;
 import com.example.sensor.model.GSensor;
 import com.example.sensor.model.SensorCategory;
+import com.example.sensor.model.SensorSettings;
 import com.example.sensor.model.SensorType;
 import com.example.sensor.model.TextArea;
 
@@ -16,6 +18,8 @@ public class SAccelerometer extends GSensor {
     private static final SensorType mSensorType=SensorType.ACCELEROMETER_SENSOR;
     private static SensorCategory sSensorCategory = SensorCategory.MATERIAL;
     private static Optional<SAccelerometer > instance = Optional.empty();
+    private SensorSettings mAccelerometerSettings=new SensorSettings(3);
+
 
     public static SAccelerometer getInstance(PackageManager packageManager,SensorManager sensorManager ){
         if (!instance.isPresent()) {
@@ -39,6 +43,14 @@ public class SAccelerometer extends GSensor {
             mAccelerometerSensor = Optional.ofNullable(sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER));
         }
     }*/
+
+    public SensorSettings getAccelerometerSettings() {
+        return mAccelerometerSettings;
+    }
+
+    public void setAccelerometerSettings(SensorSettings accelerometerSettings) {
+        mAccelerometerSettings = accelerometerSettings;
+    }
 }
 
 

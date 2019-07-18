@@ -36,7 +36,6 @@ public class SensorInfoActivity extends AppCompatActivity {
         mTechInfoPage.setSensorResolution((TextView) findViewById(R.id.info_sensor_activity_resolution_text));
         mTechInfoPage.setCloseButton((ImageView) findViewById(R.id.info_sensor_activity_close_button));
 
-
         Intent intent = getIntent();
         String[] mEnabedSensorInfo = intent.getStringArrayExtra("enabled sensor info");
         //mTechInfoPage.getSensorType().setText(mEnabedSensorInfo[0]);

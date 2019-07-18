@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.hardware.Sensor;
 import android.location.Location;
 import android.location.LocationManager;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -32,6 +33,7 @@ import com.example.sensor.model.SensorType;
 import com.example.sensor.model.TextArea;
 
 public class DataActivity extends AppCompatActivity {
+    public  final int settingsActivityRequestCode=6;
     private MainLayoutDesign mMainLayoutDesign;
     private SensorFactory mSensorFactory;
     private SensorManager mSensorManager;
@@ -47,6 +49,7 @@ public class DataActivity extends AppCompatActivity {
     private SGps mSGps;
     private ImageButton mSensorInfoButton;
     private String[] mEnabedSensorInfo; //this array contain the technical information of the current enabled sensor
+    private ImageButton mSensorSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +65,7 @@ public class DataActivity extends AppCompatActivity {
         mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         mSensorInfoButton=(ImageButton)findViewById(R.id.activity_main_Button_info);
         mEnabedSensorInfo=new String[8];
+        mSensorSettings=(ImageButton)findViewById(R.id.activity_main_Button_settings);
        // System.out.println("hhh"+mLocationManager.getProvider("gps").getPowerRequirement()+""+mLocationManager.getProvider("gps").requiresNetwork()+""+mLocationManager.getProvider("gps").requiresSatellite());
 
 
@@ -149,6 +153,17 @@ public class DataActivity extends AppCompatActivity {
                 mMainLayoutDesign.getButton().setVisibility(View.INVISIBLE);
             }
         });
+
+        mSensorSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent sensorSettingsActivity=new Intent(DataActivity.this, SettingsActivity.class);
+                sensorSettingsActivity.putExtra("rate",mSAccelerometer.getAccelerometerSettings().getAcquisitionRate());
+                startActivityForResult(sensorSettingsActivity,settingsActivityRequestCode);
+            }
+        });
+
+
     }
 
     protected void onResume() {
@@ -157,7 +172,7 @@ public class DataActivity extends AppCompatActivity {
         Log.d("dataActivity","onResume invoked");
         if (mSAccelerometer != null) {
             if (mSAccelerometer.getAccelerometerSensor().isPresent()) {
-                mSensorManager.registerListener(mSAccelerometer, mSAccelerometer.getAccelerometerSensor().get(), SensorManager.SENSOR_DELAY_NORMAL);
+                mSensorManager.registerListener(mSAccelerometer, mSAccelerometer.getAccelerometerSensor().get(),mSAccelerometer.getAccelerometerSettings().getAcquisitionRate());
                 mSAccelerometer.setListener(new GSensorListener() {
                     @Override
                     public void perceived(Sensor sensor, double val1, double val2, double val3) {
@@ -304,6 +319,15 @@ public class DataActivity extends AppCompatActivity {
             mAcuisitionDisplayArea.getTextValue2().setText(s2);
             mAcuisitionDisplayArea.getTextValue3().setText(s3);
 
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==settingsActivityRequestCode && resultCode==RESULT_OK){
+            int rate=data.getIntExtra("acquisitionRate",3);
+            mSAccelerometer.getAccelerometerSettings().setAcquisitionRate(rate);
         }
     }
 
