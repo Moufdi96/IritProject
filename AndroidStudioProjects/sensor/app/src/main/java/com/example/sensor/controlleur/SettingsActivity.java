@@ -112,7 +112,7 @@ public class SettingsActivity extends AppCompatActivity {
                         builder1.show();
                         break;
                     case "Accuracy":
-                        builder.setTitle("Set the acquisition accuracy (number of decimal)");
+                        builder.setTitle("Set the acquisition accuracy (number of decimals)");
                         builder.setView(mResultAccuracy);
                         mResultAccuracy.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
                             @Override
