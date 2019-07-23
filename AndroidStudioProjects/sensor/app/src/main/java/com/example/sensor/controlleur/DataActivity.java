@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.sensor.model.EnabledSensorInfo;
 import com.example.sensor.model.GSensorListener;
@@ -183,18 +184,20 @@ public class DataActivity extends AppCompatActivity {
         mMainLayoutDesign.getSensorInfoButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mStartSensor=true;
-                onResume();
-                Intent sensorInfoActivity=new Intent(DataActivity.this, SensorInfoActivity.class);
-                sensorInfoActivity.putExtra("enabled sensor info",new String[]{mEnabledSensorInfo.getSensorName(),mEnabledSensorInfo.getSnsorVersion(),
-                                            mEnabledSensorInfo.getSensorAcquisitionRate(),mEnabledSensorInfo.getSensorPower(),mEnabledSensorInfo.getSensorMaxRange(),
-                                            mEnabledSensorInfo.getSensorMinDelay(),mEnabledSensorInfo.getSensorMaxDelay(),mEnabledSensorInfo.getSensorResolution(),
-                                            mEnabledSensorInfo.getSensorAcquisitionRate()});
-                stoptSensor();
-                mMainLayoutDesign.getReturnHome().setVisibility(View.INVISIBLE);
-                mMainLayoutDesign.getSensorStart().setVisibility(View.INVISIBLE);
-                mMainLayoutDesign.getSensorPause().setVisibility(View.INVISIBLE);
-                startActivity(sensorInfoActivity);
+                try {
+                    Intent sensorInfoActivity=new Intent(DataActivity.this, SensorInfoActivity.class);
+                    sensorInfoActivity.putExtra("enabled sensor info",new String[]{mEnabledSensorInfo.getSensorName(),mEnabledSensorInfo.getSnsorVersion(),
+                            mEnabledSensorInfo.getSensorAcquisitionRate(),mEnabledSensorInfo.getSensorPower(),mEnabledSensorInfo.getSensorMaxRange(),
+                            mEnabledSensorInfo.getSensorMinDelay(),mEnabledSensorInfo.getSensorMaxDelay(),mEnabledSensorInfo.getSensorResolution(),
+                            mEnabledSensorInfo.getSensorAcquisitionRate()});
+                    mMainLayoutDesign.getReturnHome().setVisibility(View.INVISIBLE);
+                    mMainLayoutDesign.getSensorStart().setVisibility(View.INVISIBLE);
+                    mMainLayoutDesign.getSensorPause().setVisibility(View.INVISIBLE);
+                    startActivity(sensorInfoActivity);
+                }catch (Exception e){
+                    Toast.makeText(DataActivity.this,"click start button to collect sensor info",Toast.LENGTH_LONG).show();
+                }
+
             }
         });
 
@@ -243,6 +246,7 @@ public class DataActivity extends AppCompatActivity {
                             break;
                         case 2:
                             mSPhotometer.getPhotometerSettings().setAcquisitionRate(settings[1]);
+                            break;
                         case 3:
                             mSRotation.getmRotationSettings().setAcquisitionRate(settings[1]);
                             break;
