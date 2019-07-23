@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.example.sensor.model.GSensor;
 import com.example.sensor.model.SensorCategory;
+import com.example.sensor.model.SensorSettings;
 import com.example.sensor.model.SensorType;
 import com.example.sensor.model.TextArea;
 
@@ -14,6 +15,7 @@ import java.util.Optional;
 
 public class SGyroscope extends GSensor {
     private Optional<Sensor> mGyroscopeSensor=Optional.empty();
+    private SensorSettings mGyroscopeSettings=new SensorSettings(3,SensorType.GYROSCOPE_SENSOR.getSettingsActivityRequestCode(),5);
     private static final SensorType mSensorType=SensorType.GYROSCOPE_SENSOR;
     private static SensorCategory sSensorCategory = SensorCategory.MATERIAL;
     private static Optional<SGyroscope> instance = Optional.empty();
@@ -35,9 +37,18 @@ public class SGyroscope extends GSensor {
         return mGyroscopeSensor;
     }
 
+    public SensorSettings getGyroscopeSettings() {
+        return mGyroscopeSettings;
+    }
+
+    public void setGyroscopeSettings(SensorSettings gyroscopeSettings) {
+        mGyroscopeSettings = gyroscopeSettings;
+    }
+
     public void setADefaultGyroscopeSensor(SensorManager sensorManager) {
         if(instance.isPresent()){
             mGyroscopeSensor =Optional.ofNullable(sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE));
         }
+
     }
 }

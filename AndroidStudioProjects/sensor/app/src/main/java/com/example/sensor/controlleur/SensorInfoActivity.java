@@ -26,7 +26,7 @@ public class SensorInfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sensor_info);
         mTechInfoPage = new TechInfoPage();
 
-        //mTechInfoPage.setSensorType((TextView)findViewById(R.id.info_sensor_activity_sensortype_text));
+        mTechInfoPage.setSensorAcquisitionRate((TextView)findViewById(R.id.info_sensor_activity_acquisitionrate_text));
         mTechInfoPage.setSensorName((TextView) findViewById(R.id.info_sensor_activity_name_text));
         mTechInfoPage.setSensorPowerConsumption((TextView) findViewById(R.id.info_sensor_activity_power_text));
         mTechInfoPage.setSensorRange((TextView) findViewById(R.id.info_sensor_activity_maxRange_text));
@@ -38,9 +38,9 @@ public class SensorInfoActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String[] mEnabedSensorInfo = intent.getStringArrayExtra("enabled sensor info");
-        //mTechInfoPage.getSensorType().setText(mEnabedSensorInfo[0]);
-        mTechInfoPage.getSensorName().setText(mEnabedSensorInfo[1]);
-        mTechInfoPage.getSensorVersion().setText(mEnabedSensorInfo[2]);
+        mTechInfoPage.getSensorName().setText(mEnabedSensorInfo[0]);
+        mTechInfoPage.getSensorVersion().setText(mEnabedSensorInfo[1]);
+        mTechInfoPage.getSensorAcquisitionRate().setText(mEnabedSensorInfo[2]);
         mTechInfoPage.getSensorPowerConsumption().setText(mEnabedSensorInfo[3]);
         mTechInfoPage.getSensorRange().setText(mEnabedSensorInfo[4]);
         mTechInfoPage.getSensorMinDelay().setText(mEnabedSensorInfo[5]);

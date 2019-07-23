@@ -15,10 +15,10 @@ import java.util.Optional;
 
 public class SAccelerometer extends GSensor {
     private Optional<Sensor> mAccelerometerSensor=Optional.empty();
-    private static final SensorType mSensorType=SensorType.ACCELEROMETER_SENSOR;
+    public static final SensorType mSensorType=SensorType.ACCELEROMETER_SENSOR;
     private static SensorCategory sSensorCategory = SensorCategory.MATERIAL;
     private static Optional<SAccelerometer > instance = Optional.empty();
-    private SensorSettings mAccelerometerSettings=new SensorSettings(3);
+    private static SensorSettings mAccelerometerSettings=new SensorSettings(3,SensorType.ACCELEROMETER_SENSOR.getSettingsActivityRequestCode(),5);
 
 
     public static SAccelerometer getInstance(PackageManager packageManager,SensorManager sensorManager ){
@@ -30,7 +30,7 @@ public class SAccelerometer extends GSensor {
 
         if(instance.isPresent()){
             instance.get().mAccelerometerSensor = Optional.ofNullable(sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER));
-        }
+    }
         return instance.get();
       }
 

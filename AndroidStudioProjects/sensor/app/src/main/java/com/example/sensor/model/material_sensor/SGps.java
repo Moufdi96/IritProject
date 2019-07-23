@@ -12,9 +12,12 @@ import android.support.v4.app.ActivityCompat;
 import android.widget.TextView;
 
 import com.example.sensor.controlleur.HomeActivity;
+import com.example.sensor.model.SensorSettings;
+import com.example.sensor.model.SensorType;
 import com.example.sensor.model.TextArea;
 
 public class SGps implements LocationListener {
+    private SensorSettings mGpsSettings=new SensorSettings(3, SensorType.GPS_SENSOR.getSettingsActivityRequestCode(),5);
     private LocationProvider mLocationProvider;
     private LocationManager mLocationManager;
     private TextArea mAcuisitionDisplayArea;
@@ -57,5 +60,13 @@ public class SGps implements LocationListener {
     @Override
     public void onProviderDisabled(String provider) {
         System.out.println("provider"+provider);
+    }
+
+    public SensorSettings getGpsSettings() {
+        return mGpsSettings;
+    }
+
+    public void setGpsSettings(SensorSettings gpsSettings) {
+        mGpsSettings = gpsSettings;
     }
 }

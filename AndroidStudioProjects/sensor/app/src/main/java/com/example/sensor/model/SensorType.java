@@ -1,17 +1,17 @@
 package com.example.sensor.model;
 
 public enum SensorType {
-    ACCELEROMETER_SENSOR(3),PROXIMITY_SENSOR(2),PHOTOMETER_SENSOR(1),
-    ROTATION_SENSOR(3),MAGNETOMETER_SENSOR(3),GYROSCOPE_SENSOR(3),VELOCITY_SENSOR(3),
-    GPS_SENSOR(3);
+    ACCELEROMETER_SENSOR(0),PROXIMITY_SENSOR(1),PHOTOMETER_SENSOR(2),
+    ROTATION_SENSOR(3),MAGNETOMETER_SENSOR(4),GYROSCOPE_SENSOR(5),
+    GPS_SENSOR(6);
 
 
-    private final int numParameters;
+    private final int mSettingsActivityRequestCode;
 
-    private SensorType(int numParameters){
-        this.numParameters = numParameters;
+    private SensorType(int settingsActivityRequestCode){
+        this.mSettingsActivityRequestCode = settingsActivityRequestCode;
     }
 
-    public int getNumParameters(){
-        return numParameters;}
+    public int getSettingsActivityRequestCode(){
+        return mSettingsActivityRequestCode;}
 }

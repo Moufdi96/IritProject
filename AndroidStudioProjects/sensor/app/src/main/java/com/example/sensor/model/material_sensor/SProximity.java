@@ -7,6 +7,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import com.example.sensor.model.GSensor;
 import com.example.sensor.model.SensorCategory;
+import com.example.sensor.model.SensorSettings;
 import com.example.sensor.model.SensorType;
 import com.example.sensor.model.TextArea;
 import java.util.Optional;
@@ -14,6 +15,7 @@ import java.util.Optional;
 
 public class SProximity extends GSensor {
     private static final SensorType mSENSOR_TYPE=SensorType.PROXIMITY_SENSOR;
+    private SensorSettings mProximitySettings=new SensorSettings(3,SensorType.PROXIMITY_SENSOR.getSettingsActivityRequestCode(),5);
     private static SensorCategory sSensorCategory = SensorCategory.MATERIAL;
     private Optional<Sensor> mProximitySensor=Optional.empty();
     private static Optional<SProximity> instance =Optional.empty();
@@ -39,5 +41,13 @@ public class SProximity extends GSensor {
         if(instance.isPresent()){
             mProximitySensor=Optional.ofNullable(sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY));
         }
+    }
+
+    public SensorSettings getProximitySettings() {
+        return mProximitySettings;
+    }
+
+    public void setProximitySettings(SensorSettings proximitySettings) {
+        mProximitySettings = proximitySettings;
     }
 }

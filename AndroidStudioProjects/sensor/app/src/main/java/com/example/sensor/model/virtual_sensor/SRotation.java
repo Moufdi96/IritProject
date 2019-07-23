@@ -6,8 +6,10 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
+import com.example.sensor.model.EnabledSensorInfo;
 import com.example.sensor.model.GSensorListener;
 import com.example.sensor.model.SensorCategory;
+import com.example.sensor.model.SensorSettings;
 import com.example.sensor.model.SensorType;
 import com.example.sensor.model.TextArea;
 import java.util.Optional;
@@ -18,6 +20,8 @@ requires to combine magnetometer and accelerometer data*/
 
 public class SRotation implements SensorEventListener {
     private static final SensorType mSensorType = SensorType.ROTATION_SENSOR;
+    private EnabledSensorInfo mEnabledSensorInfo;
+    private static SensorSettings mRotationSettings=new SensorSettings(3,SensorType.ROTATION_SENSOR.getSettingsActivityRequestCode(),5);
     private static SensorCategory sSensorCategory = SensorCategory.VIRTUAL;
     private static Optional<SRotation> instance = Optional.empty();
     private Sensor mMagnetometer;
@@ -29,12 +33,11 @@ public class SRotation implements SensorEventListener {
     private Optional<GSensorListener> listner=Optional.empty();
 
 
+
     private SRotation(TextArea textArea) {
         mMeasureAccelerometer=new float[3];
         mMeasureMagnetomter=new float[3];
     }
-
-
 
     public Sensor getMagnetometerSensor() {
         return mMagnetometer;
@@ -94,5 +97,13 @@ public class SRotation implements SensorEventListener {
         //mTextArea.getTextValue1().setText("X=" + (double)Math.round((orientationValues[0]*180/3.14)*100)/ 100+"°"); //Yaw
         //mTextArea.getTextValue2().setText("Y=" + (double)Math.round((orientationValues[1]*180/3.14)*100)/ 100+"°"); //Pitch
         //mTextArea.getTextValue3().setText("Z=" + (double)Math.round((orientationValues[2]*180/3.14)*100)/ 100+"°"); //Roll
+    }
+
+    public SensorSettings getmRotationSettings() {
+        return mRotationSettings;
+    }
+
+    public void setmRotationSettings(SensorSettings mRotationSettings) {
+        SRotation.mRotationSettings = mRotationSettings;
     }
 }

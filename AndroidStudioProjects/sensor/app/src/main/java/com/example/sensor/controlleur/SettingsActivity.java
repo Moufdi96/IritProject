@@ -8,15 +8,20 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.NumberPicker;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import com.example.sensor.R;
 
@@ -32,6 +37,10 @@ public class SettingsActivity extends AppCompatActivity {
     private Drawable icon;
     private Intent mDataActivity;
     private int mCheckedItemAcquisitionRate;
+    private int mChoosenResultAccuracy;
+    private AlertDialog.Builder builder;
+    private AlertDialog.Builder builder1;
+    private NumberPicker mResultAccuracy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,15 +54,23 @@ public class SettingsActivity extends AppCompatActivity {
         this.getWindow().setAttributes(mLayoutParams);
         setContentView(R.layout.activity_settings);
         mListView = (ListView)findViewById(R.id.Settings_activity_listView);
-        //mCloseButton=(ImageView)findViewById(R.id.settings_activity_close_button);
-        mSettings=new String[]{"Acquisition frequency","Unit"};
+        mDataActivity=new Intent();
+        final Intent intent = getIntent();
+        int[] updatedSettings=intent.getIntArrayExtra("settings");
+        mCheckedItemAcquisitionRate = updatedSettings[0];
+        mChoosenResultAccuracy = updatedSettings[1];
+        mResultAccuracy=new NumberPicker(this);
+        mResultAccuracy.setMaxValue(15);
+        mResultAccuracy.setMinValue(0);
+        mResultAccuracy.setValue(mChoosenResultAccuracy);
+        mResultAccuracy.setWrapSelectorWheel(false);
+        builder=new AlertDialog.Builder(this);
+        builder1=new AlertDialog.Builder(this);
+        mSettings=new String[]{"Acquisition frequency","Accuracy","Todo","Todo","Todo"};
         ArrayAdapter<String> mArrayAdapter = new ArrayAdapter<String>(this,simple_list_item_1,mSettings);
         mListView.setAdapter(mArrayAdapter);
         icon= getDrawable(R.drawable.ic_check_circle_black_24dp);
-        mDataActivity=new Intent();
 
-        final Intent intent = getIntent();
-        mCheckedItemAcquisitionRate = intent.getIntExtra("rate",3);
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -61,40 +78,79 @@ public class SettingsActivity extends AppCompatActivity {
                 String selectedItem=(String)mListView.getItemAtPosition(position);
                 switch (selectedItem) {
                     case "Acquisition frequency":
-                        AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this);
-                        builder.setTitle("Set the acquisition rate");
-                        builder.setSingleChoiceItems(new String[]{"0", "1", "2", "3"}, mCheckedItemAcquisitionRate, new DialogInterface.OnClickListener() {
+                        builder1.setTitle("Set the acquisition frequency");
+                        builder1.setSingleChoiceItems(new String[]{"100Hz", "50Hz", "25Hz", "7Hz"}, mCheckedItemAcquisitionRate, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                mDataActivity.putExtra("acquisitionRate",which);
+                                mDataActivity.putExtra("setting",new int[]{0,which});
+                                if(which==0){
+
+                                    Toast.makeText(SettingsActivity.this,"High Acquisition rate may drane your battery",Toast.LENGTH_LONG).show();
+                                }
                                 mCheckedItemAcquisitionRate=which;
                             }
                         });
 
 
+                        builder1.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                setResult(RESULT_OK,mDataActivity);
+                                dialog.dismiss();
+                            }
+                        });
+
+                        builder1.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                setResult(RESULT_CANCELED,mDataActivity);
+                                dialog.dismiss();
+                            }
+                        });
+
+                        builder1.create();
+                        builder1.show();
+                        break;
+                    case "Accuracy":
+                        builder.setTitle("Set the acquisition accuracy (number of decimal)");
+                        builder.setView(mResultAccuracy);
+                        mResultAccuracy.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+                            @Override
+                            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                                mResultAccuracy.setValue(newVal);
+
+                                if(newVal!=oldVal){
+                                    mChoosenResultAccuracy=newVal;
+                                    mDataActivity.putExtra("setting",new int[]{1,mChoosenResultAccuracy});
+                                    setResult(RESULT_OK,mDataActivity);
+
+                                }
+                            }
+                        });
                         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 setResult(RESULT_OK,mDataActivity);
                                 dialog.dismiss();
-                                finish();
+                                ((ViewGroup)mResultAccuracy.getParent()).removeView(mResultAccuracy);
                             }
                         });
-
                         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 setResult(RESULT_CANCELED,mDataActivity);
                                 dialog.dismiss();
-                                finish();
+                                ((ViewGroup)mResultAccuracy.getParent()).removeView(mResultAccuracy);
                             }
                         });
-
                         builder.create();
                         builder.show();
                         break;
+
                 }
             }
         });
+
+
     }
 }

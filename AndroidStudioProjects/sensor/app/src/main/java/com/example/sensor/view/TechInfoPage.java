@@ -12,7 +12,9 @@ public class TechInfoPage {
     private TextView mSensorMinDelay;
     private TextView mSensorMaxDelay;
     private TextView mSensorResolution;
+    private TextView mSensorAcquisitionRate;
     private ImageView mCloseButton;
+
 
     public TextView getSensorName() {
 
@@ -85,5 +87,13 @@ public class TechInfoPage {
 
     public void setCloseButton(ImageView closeButton) {
         mCloseButton = closeButton;
+    }
+
+    public TextView getSensorAcquisitionRate() {
+        return mSensorAcquisitionRate;
+    }
+
+    public void setSensorAcquisitionRate(TextView sensorAcquisitionRate) {
+        mSensorAcquisitionRate = sensorAcquisitionRate;
     }
 }

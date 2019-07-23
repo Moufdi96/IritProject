@@ -34,7 +34,7 @@ public class GSensor implements SensorEventListener {
     @Override
     public void onSensorChanged(SensorEvent event) {
         sensor=event.sensor;
-        System.out.println("name"+sensor.getName()+"     "+sensor.getType());
+        System.out.println("time"+event.timestamp);
         if(listener.isPresent()){
             listener.get().perceived(sensor,event.values[0],event.values[1],event.values[2]);
         }

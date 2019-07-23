@@ -1,12 +1,15 @@
 package com.example.sensor.model;
 
-import android.hardware.Sensor;
 
 public class SensorSettings {
     private int mAcquisitionRate;
+    private int mAccuracy;
+    public int mSettingsActivityRequestCode;
 
-    public SensorSettings(int acquisitionRate) {
+    public SensorSettings(int acquisitionRate,int settingsActivityRequestCode,int accuracy) {
         mAcquisitionRate = acquisitionRate;
+        mSettingsActivityRequestCode=settingsActivityRequestCode;
+        mAccuracy=accuracy;
     }
 
     public int getAcquisitionRate() {
@@ -15,5 +18,21 @@ public class SensorSettings {
 
     public void setAcquisitionRate(int acquisitionRate) {
         mAcquisitionRate = acquisitionRate;
+    }
+
+    public int getSettingsActivityRequestCode() {
+        return mSettingsActivityRequestCode;
+    }
+
+    public void setSettingsActivityRequestCode(int settingsActivityRequestCode) {
+        this.mSettingsActivityRequestCode = settingsActivityRequestCode;
+    }
+
+    public int getAccuracy() {
+        return mAccuracy;
+    }
+
+    public void setAccuracy(int accuracy) {
+        this.mAccuracy = accuracy;
     }
 }
